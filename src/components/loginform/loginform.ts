@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/AuthService';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-loginform',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './loginform.html',
   styleUrl: './loginform.css',
 })
