@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/AuthService';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,10 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',
 })
 export class Header {
+  authService = inject(AuthService);
   isMobileMenuOpen = false;
   isMobileProductExpanded = false;
   isUserMenuOpen = false;
-
-  isConnected = true;
-  isSubscribed = true;
-  solde = 0;
 
   navLinks = [
     { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
@@ -26,8 +24,8 @@ export class Header {
 
   get filteredLinks() {
     return this.navLinks.filter((link) => {
-      if (link.showIfSubscribed === true && !this.isSubscribed) return false;
-      if (link.showIfSubscribed === false && this.isSubscribed) return false;
+      if (link.showIfSubscribed === true && !this.authService.isSubscribed()) return false;
+      if (link.showIfSubscribed === false && this.authService.isSubscribed()) return false;
 
       return true;
     });
@@ -43,19 +41,5 @@ export class Header {
 
   closeUserMenu() {
     this.isUserMenuOpen = false;
-  }
-
-  logout() {
-    this.isConnected = false;
-    this.isSubscribed = false;
-    this.isUserMenuOpen = false;
-  }
-
-  login() {
-    this.isConnected = true;
-  }
-
-  toggleSubscribe() {
-    this.isSubscribed = !this.isSubscribed;
   }
 }
