@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/AuthService';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -19,7 +20,7 @@ export class Header {
     { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
     { label: 'Catalogue', href: '/catalogue', showIfSubscribed: true },
     { label: 'Marketplace', href: '/marketplace', showIfSubscribed: true },
-    { label: 'Nous contacter', href: '/contact' }, // Toujours visible
+    { label: 'Nous contacter', href: '/contact-us' },
   ];
 
   get filteredLinks() {

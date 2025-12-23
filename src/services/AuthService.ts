@@ -20,6 +20,13 @@ export class AuthService {
       this.isSubscribed.set(true);
       return true;
     }
+    if (username === 'user' && password === 'user') {
+      this.isLoggedIn.set(true);
+      this.currentUser.set(username);
+      this.remainingBalance.set(0);
+      this.isSubscribed.set(false);
+      return true;
+    }
     return false;
   }
 
