@@ -42,9 +42,7 @@
 
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       @if (!isConnected) {
-      <a (click)="login()" class="text-sm font-semibold text-white cursor-pointer"
-        >Connexion &rarr;</a
-      >
+      <a href="/login" class="text-sm font-semibold text-white cursor-pointer">Connexion &rarr;</a>
       } @else {
       <div class="flex items-center gap-4">
         <span class="text-gray-400 text-xs">Solde restant : {{ solde }}€</span>
