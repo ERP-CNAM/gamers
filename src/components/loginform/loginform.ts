@@ -18,9 +18,6 @@ export class Loginform {
 
   onSubmit() {
     const success = this.authService.login(this.username, this.password);
-    console.log('Username :' + this.username);
-    console.log('Password :' + this.password);
-    console.log('success: ' + success);
     if (success) {
       this.router.navigate(['/']);
     }
