@@ -1,0 +1,51 @@
+<div *ngIf="game; else notFound" class="min-h-screen bg-gray-900 text-white p-8">
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <img [src]="game.cover?.url" class="rounded-xl shadow-lg" alt="{{ game.name }}"/>
+
+    <div class="md:col-span-2 space-y-4">
+      <h1 class="text-4xl font-bold">{{ game.name }}</h1>
+
+      <p class="text-gray-300">{{ game.summary }}</p>
+
+      <div class="flex flex-wrap gap-2">
+        <span *ngFor="let genre of game.genres"
+              class="px-3 py-1 bg-purple-600 rounded-full text-sm">
+          {{ genre.name }}
+        </span>
+      </div>
+
+      <p class="text-sm text-gray-400">
+        Sortie : {{ getYear(game.first_release_date) }}
+      </p>
+
+      <p class="text-sm text-gray-400">
+        Plateformes :
+        <span *ngFor="let p of game.platforms; let last = last">
+          {{ p.name }}<span *ngIf="!last">, </span>
+        </span>
+      </p>
+
+      <p class="text-yellow-400 text-lg" *ngIf="game.rating">
+        ⭐ {{ game.rating | number:'1.0-0' }}/100
+      </p>
+
+      <div class="mt-4 text-gray-400">
+        <p><strong>Multijoueur :</strong> {{ game.multiplayer ? 'Oui' : 'Non' }}</p>
+        <p><strong>Développeur :</strong> {{ game.developer || 'Indéterminé' }}</p>
+        <p><strong>Mode de jeu :</strong> {{ game.mode || 'Solo' }}</p>
+      </div>
+
+      <a routerLink="/" class="text-blue-400 hover:text-blue-300 transition">
+        ← Retour
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="min-h-screen flex items-center justify-center text-gray-400">
+    Jeu introuvable
+  </div>
+</ng-template>

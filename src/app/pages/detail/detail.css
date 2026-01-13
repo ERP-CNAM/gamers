@@ -1,0 +1,32 @@
+.detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.game-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.1rem;
+  margin: 15px 0;
+}
+
+.infos {
+  list-style: none;
+  padding: 0;
+}
+
+.infos li {
+  margin: 8px 0;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #007bff;
+}
