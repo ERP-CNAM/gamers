@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Loginpage } from './loginpage/loginpage';
 import { Homepage } from './homepage/homepage';
+import { Subscribepage } from './subscribepage/subscribepage';
 import { Profilepage } from './profilepage/profilepage';
 import { restrictConnectedUser, restrictNotConnectedUser } from './auth-guard';
 import { Contactuspage } from './contactuspage/contactuspage';
@@ -10,6 +11,7 @@ import { Registerpage } from './registerpage/registerpage';
 export const routes: Routes = [
   { path: '', component: Homepage },
   { path: 'login', component: Loginpage },
+  { path: 'subscribe', component: Subscribepage },
   { path: 'profil', component: Profilepage },
   { path: 'register', component: Registerpage },
   { path: 'contact-us', component: Contactuspage, canActivate: [restrictNotConnectedUser] },
