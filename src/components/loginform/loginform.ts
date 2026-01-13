@@ -13,11 +13,11 @@ export class Loginform {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  username = '';
+  email = '';
   password = '';
 
   onSubmit() {
-    const success = this.authService.login(this.username, this.password);
+    const success = this.authService.login(this.email, this.password);
     if (success) {
       this.router.navigate(['/']);
     }
