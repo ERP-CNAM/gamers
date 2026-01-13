@@ -3,10 +3,21 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { AuthService } from '../services/auth.service';
+import { environment } from '../environments/environment';
+import { AuthMockService } from '../services/auth-mock.service';
+import { AuthApiService } from '../services/auth-api.service';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
-  ]
+    provideRouter(routes),
+    provideClientHydration(withEventReplay()),
+    {
+      provide: AuthService,
+      useClass: environment.useMock ? AuthMockService : AuthApiService,
+    },
+  ],
 };

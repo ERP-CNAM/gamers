@@ -6,6 +6,30 @@
     <img src="/logo.png" alt="logo" class="w-32" />
   </div>
   <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName"> Prénom </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="firstName"
+      name="firstName"
+      [(ngModel)]="firstName"
+      type="text"
+      placeholder="Prénom"
+    />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+      Nom de famille
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="lastName"
+      name="lastName"
+      [(ngModel)]="lastName"
+      type="text"
+      placeholder="Nom de famille"
+    />
+  </div>
+  <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Adresse email </label>
     <input
       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -16,7 +40,7 @@
       placeholder="Adresse email"
     />
   </div>
-  <div class="mb-4">
+  <!-- <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
       Nom d'utilisateur
     </label>
@@ -28,7 +52,7 @@
       type="text"
       placeholder="Nom d'utilisateur"
     />
-  </div>
+  </div> -->
   <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Mot de passe </label>
     <input

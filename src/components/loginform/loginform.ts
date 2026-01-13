@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/AuthService';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-loginform',
@@ -17,9 +17,17 @@ export class Loginform {
   password = '';
 
   onSubmit() {
-    const success = this.authService.login(this.email, this.password);
-    if (success) {
-      this.router.navigate(['/']);
-    }
+    this.authService.login(this.email, this.password).subscribe({
+      next: (isOk) => {
+        if (isOk) {
+          this.router.navigate(['/']);
+        } else {
+          alert('Identifiants incorrects');
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la connexion', err);
+      },
+    });
   }
 }

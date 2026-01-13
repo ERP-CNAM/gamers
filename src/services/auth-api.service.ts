@@ -1,0 +1,75 @@
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { AuthService, UserStatus } from './auth.service';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable, tap, catchError, of } from 'rxjs';
+import { environment } from '../environments/environment';
+
+@Injectable()
+export class AuthApiService extends AuthService {
+  private http = inject(HttpClient);
+
+  isLoggedIn = signal(false);
+  email = signal<string | null>(null);
+  status = signal<UserStatus>('BLOCKED');
+  isSubscribed = computed(() => this.status() === 'OK');
+  remainingBalance = signal<number>(0);
+  token = signal<string | null>(null);
+  firstName = signal<string | null>(null);
+  lastName = signal<string | null>(null);
+  userId = signal<number | null>(null);
+
+  login(email: string, password: string): Observable<boolean> {
+    return this.http.post<any>(`${environment.apiUrl}/login`, { email, password }).pipe(
+      tap((user) => this.setSession(user)),
+      map((user) => !!user),
+      catchError((error) => {
+        console.error('Erreur de connexion API:', error);
+        return of(false);
+      })
+    );
+  }
+
+  register(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string
+  ): Observable<boolean> {
+    return this.http
+      .post<any>(`${environment.apiUrl}/register`, { email, password, firstName, lastName })
+      .pipe(
+        tap((user) => this.setSession(user)),
+        map((user) => !!user),
+        catchError((error) => {
+          console.error("Erreur d'inscription API:", error);
+          return of(false);
+        })
+      );
+  }
+
+  private setSession(user: any): void {
+    if (user) {
+      this.isLoggedIn.set(true);
+      this.email.set(user.email);
+      this.status.set(user.status);
+      this.remainingBalance.set(user.balance);
+      this.token.set(user.token);
+      this.firstName.set(user.firstName);
+      this.lastName.set(user.lastName);
+      this.userId.set(user.id);
+    }
+  }
+
+  logout() {
+    this.isLoggedIn.set(false);
+    this.email.set(null);
+    this.status.set('BLOCKED');
+    this.remainingBalance.set(0);
+    this.token.set(null);
+    this.firstName.set(null);
+    this.lastName.set(null);
+    this.userId.set(null);
+  }
+
+  toggleSubscription() {}
+}
