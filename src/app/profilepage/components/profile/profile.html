@@ -1,0 +1,117 @@
+<section *ngIf="vm$ | async as vm" class="p-6 max-w-5xl mx-auto">
+  <header class="flex items-center justify-between gap-4">
+    <h1 class="text-3xl font-black tracking-tight">Profil</h1>
+
+    <span
+      class="px-3 py-1 rounded-full border text-sm font-semibold"
+      [class.border-green-400]="vm.financialStatus === 'OK'"
+      [class.border-red-400]="vm.financialStatus === 'KO'"
+    >
+      Statut financier : {{ vm.financialStatus }}
+    </span>
+  </header>
+
+  <article class="mt-6 p-5 rounded-xl border border-white/10 bg-white/5">
+    <h2 class="text-xl font-bold">Compte</h2>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <p class="text-sm opacity-70">Nom</p>
+        <p class="font-semibold">{{ vm.lastName }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Prénom</p>
+        <p class="font-semibold">{{ vm.firstName }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Email</p>
+        <p class="font-semibold">{{ vm.email }}</p>
+      </div>
+
+      <div class="md:col-span-2">
+        <p class="text-sm opacity-70">Adresse</p>
+        <p class="font-semibold">{{ vm.addressLine }}</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="mt-6 p-5 rounded-xl border border-white/10 bg-white/5">
+    <h2 class="text-xl font-bold">Abonnement</h2>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <p class="text-sm opacity-70">Contrat</p>
+        <p class="font-semibold">{{ vm.contractCode }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Statut</p>
+        <p class="font-semibold">{{ vm.subscriptionStatus }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Mensualité</p>
+        <p class="font-semibold">{{ vm.monthlyPriceEur | number:'1.2-2' }} €</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Début</p>
+        <p class="font-semibold">{{ vm.startDate }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Fin</p>
+        <p class="font-semibold">{{ vm.endDate ?? '-' }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Code promo</p>
+        <p class="font-semibold">{{ vm.promoCode ?? '-' }}</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="mt-6 p-5 rounded-xl border border-white/10 bg-white/5">
+    <div class="flex items-center justify-between gap-4">
+      <h2 class="text-xl font-bold">Situation financière</h2>
+
+      <p class="font-semibold">
+        Solde :
+        <span [class.text-red-300]="vm.balanceEur < 0" [class.text-green-300]="vm.balanceEur >= 0">
+          {{ vm.balanceEur | number:'1.2-2' }} €
+        </span>
+      </p>
+    </div>
+
+    <p *ngIf="vm.financialStatus === 'KO'" class="mt-3 text-red-300 font-semibold">
+      Accès bloqué : situation financière non conforme.
+    </p>
+
+    <div class="mt-5">
+      <h3 class="font-bold">Factures</h3>
+
+      <table class="mt-3 w-full text-left border-collapse">
+        <thead class="opacity-80">
+          <tr>
+            <th class="py-2 border-b border-white/10">Réf</th>
+            <th class="py-2 border-b border-white/10">Date</th>
+            <th class="py-2 border-b border-white/10">Montant</th>
+            <th class="py-2 border-b border-white/10">Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of vm.invoices; trackBy: trackByInvoiceRef">
+            <td class="py-2 border-b border-white/5">{{ i.ref }}</td>
+            <td class="py-2 border-b border-white/5">{{ i.issueDate }}</td>
+            <td class="py-2 border-b border-white/5">{{ i.amountEur | number:'1.2-2' }} €</td>
+            <td class="py-2 border-b border-white/5">{{ i.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="vm.invoices.length === 0" class="mt-3 opacity-70">Aucune facture.</p>
+    </div>
+  </article>
+</section>
