@@ -17,10 +17,9 @@ export class Header {
   isUserMenuOpen = false;
 
   navLinks = [
-    { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
+    // { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
     { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
     { label: 'Catalogue', href: '/catalogue', showIfSubscribed: true },
-    { label: 'Marketplace', href: '/marketplace', showIfSubscribed: true },
     { label: 'Nous contacter', href: '/contact-us' },
   ];
 

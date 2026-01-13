@@ -11,12 +11,12 @@ import { Registerpage } from './registerpage/registerpage';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
-  { path: 'login', component: Loginpage },
-  { path: 'detail/:id', component: DetailPage },
+  { path: 'login', component: Loginpage, canActivate: [restrictConnectedUser] },
+  { path: 'detail/:id', component: DetailPage, canActivate: [restrictNotConnectedUser] },
   { path: 'subscribe', component: Subscribepage },
-  { path: 'profil', component: Profilepage },
-  { path: 'register', component: Registerpage },
-  { path: 'contact-us', component: Contactuspage, canActivate: [restrictNotConnectedUser] },
+  { path: 'profil', component: Profilepage, canActivate: [restrictNotConnectedUser] },
+  { path: 'register', component: Registerpage, canActivate: [restrictConnectedUser] },
+  { path: 'contact-us', component: Contactuspage },
 
   { path: '**', component: NotFoundpage },
 ];
