@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: '', component: Homepage },
   { path: 'login', component: Loginpage, canActivate: [restrictConnectedUser] },
   { path: 'detail/:id', component: DetailPage, canActivate: [restrictNotConnectedUser] },
-  { path: 'subscribe', component: Subscribepage },
+  { path: 'subscribe', component: Subscribepage, canActivate: [restrictNotConnectedUser] },
   { path: 'profil', component: Profilepage, canActivate: [restrictNotConnectedUser] },
   { path: 'register', component: Registerpage, canActivate: [restrictConnectedUser] },
   { path: 'contact-us', component: Contactuspage },

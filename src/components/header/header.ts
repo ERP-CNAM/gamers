@@ -18,7 +18,7 @@ export class Header {
 
   navLinks = [
     // { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
-    { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
+    { label: "S'abonner", href: '/subscribe', showIfSubscribed: true },
     { label: 'Catalogue', href: '/catalogue', showIfSubscribed: true },
     { label: 'Nous contacter', href: '/contact-us' },
   ];
