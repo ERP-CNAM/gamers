@@ -47,9 +47,14 @@
       >
       } @else {
       <div class="flex items-center gap-4">
-        <span class="text-gray-400 text-xs"
-          >Solde restant : {{ authService.remainingBalance() }}€</span
-        >
+        <div class="flex flex-col">
+          <span class="text-gray-400 text-xs font-bold"
+            >{{ authService.firstName() }} {{ authService.lastName() }}</span
+          >
+          <span class="text-gray-400 text-xs"
+            >Solde restant : {{ authService.remainingBalance() }}€</span
+          >
+        </div>
         <button
           (click)="toggleUserMenu()"
           type="button"
@@ -78,16 +83,15 @@
     >
       Mon Profil
     </a>
-    @if (!authService.isSubscribed()) {
 
-    <button
-      (click)="authService.togleSubscription()"
+    <a
+      routerLink="/subscribe"
       class="block px-4 py-2 w-full text-left text-sm text-white hover:bg-gray-800"
       role="menuitem"
     >
       S'abonner
-    </button>
-    }
+    </a>
+    
     <button
       (click)="authService.logout()"
       class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-800"

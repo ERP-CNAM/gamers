@@ -9,16 +9,17 @@ import { Contactuspage } from './contactuspage/contactuspage';
 import { NotFoundpage } from './not-foundpage/not-foundpage';
 import { Registerpage } from './registerpage/registerpage';
 import { DiscoverPage } from './discover/discover';
-
+import { Cataloguepage} from './cataloguepage/cataloguepage';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
-  { path: 'login', component: Loginpage },
-  { path: 'detail/:id', component: DetailPage },
-  { path: 'subscribe', component: Subscribepage },
-  { path: 'profil', component: Profilepage },
-  { path: 'register', component: Registerpage },
-  { path: 'contact-us', component: Contactuspage, canActivate: [restrictNotConnectedUser] },
+  { path: 'login', component: Loginpage, canActivate: [restrictConnectedUser] },
+  { path: 'detail/:id', component: DetailPage, canActivate: [restrictNotConnectedUser] },
+  { path: 'subscribe', component: Subscribepage, canActivate: [restrictNotConnectedUser] },
+  { path: 'profil', component: Profilepage, canActivate: [restrictNotConnectedUser] },
+  { path: 'register', component: Registerpage, canActivate: [restrictConnectedUser] },
+  { path: 'contact-us', component: Contactuspage, canActivate: [restrictNotConnectedUser]  },
+  { path: 'catalogue', component: Cataloguepage },
   { path: 'discover', component: DiscoverPage },
 
   { path: '**', component: NotFoundpage },

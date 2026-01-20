@@ -10,22 +10,13 @@ export interface InvoiceVm {
 }
 
 export interface ProfileVm {
-  // Compte
   firstName: string;
   lastName: string;
   email: string;
-  addressLine: string;
 
-  // Abonnement
-  contractCode: string;
-  subscriptionStatus: SubscriptionStatus;
-  startDate: string;
-  endDate?: string;
-  monthlyPriceEur: number;
-  promoCode?: string;
-
-  // Financier
-  balanceEur: number;
-  financialStatus: FinancialStatus;
-  invoices: ReadonlyArray<InvoiceVm>;
+  phone?: string;
+  street?: string;
+  city?: string;
+  postcode?: string;
+  country?: string;
 }

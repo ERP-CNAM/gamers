@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/AuthService';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-loginform',
@@ -12,14 +12,24 @@ import { Router, RouterLink } from '@angular/router';
 export class Loginform {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-  username = '';
+  email = '';
   password = '';
 
   onSubmit() {
-    const success = this.authService.login(this.username, this.password);
-    if (success) {
-      this.router.navigate(['/']);
-    }
+    this.authService.login(this.email, this.password).subscribe({
+      next: (isOk) => {
+        if (isOk) {
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.router.navigateByUrl(returnUrl);
+        } else {
+          alert('Identifiants incorrects');
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la connexion', err);
+      },
+    });
   }
 }

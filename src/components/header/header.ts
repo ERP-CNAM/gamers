@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/AuthService';
+// import { AuthService } from '../../services/AuthService';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +17,9 @@ export class Header {
   isUserMenuOpen = false;
 
   navLinks = [
-    { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
-    { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
+    // { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
+    { label: "S'abonner", href: '/subscribe', showIfSubscribed: true },
     { label: 'Catalogue', href: '/catalogue', showIfSubscribed: true },
-    { label: 'Marketplace', href: '/marketplace', showIfSubscribed: true },
     { label: 'Nous contacter', href: '/contact-us' },
   ];
 

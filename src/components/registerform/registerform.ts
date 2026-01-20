@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/AuthService';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registerform',
@@ -13,15 +13,32 @@ export class Registerform {
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  // username = '';
   email = '';
-  username = '';
   password = '';
   confirmedpassword = '';
+  firstName = '';
+  lastName = '';
 
   onSubmit() {
-    const success = this.authService.register(this.username, this.password);
-    if (success) {
-      this.router.navigate(['/']);
+    if (this.password !== this.confirmedpassword) {
+      alert('Les mots de passe ne correspondent pas.');
+      return;
     }
+
+    this.authService.register(this.email, this.password, this.firstName, this.lastName).subscribe({
+      next: (success) => {
+        if (success) {
+          console.log('Inscription et connexion réussies');
+          this.router.navigate(['/']);
+        } else {
+          alert("Erreur lors de l'inscription. L'utilisateur existe peut-être déjà.");
+        }
+      },
+      error: (err) => {
+        console.error("Erreur réseau lors de l'inscription", err);
+        alert('Une erreur est survenue, veuillez réessuyer plus tard.');
+      },
+    });
   }
 }

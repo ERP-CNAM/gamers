@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "email": "admin",
+            "password": "admin",
+            "balance": 50,
+            "status": "OK",
+            "firstName": "Admin",
+            "lastName": "User"
+        },
+        {
+            "email": "user",
+            "password": "user",
+            "balance": 0,
+            "status": "BLOCKED",
+            "firstName": "Regular",
+            "lastName": "User"
+        }
+    ]
+}
