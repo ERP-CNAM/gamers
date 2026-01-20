@@ -1,0 +1,92 @@
+<section *ngIf="vm$ | async as vm" class="p-6 max-w-5xl mx-auto" >
+  <header class="flex items-center justify-between gap-4">
+    <h1 class="text-3xl font-black tracking-tight">Profil</h1>
+  </header>
+
+  <!-- Compte -->
+  <article class="mt-6 p-5 rounded-xl border border-white/10 bg-white/5">
+    <h2 class="text-xl font-bold">Informations</h2>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <p class="text-sm opacity-70">Nom</p>
+        <p class="font-semibold">{{ vm.lastName }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Prénom</p>
+        <p class="font-semibold">{{ vm.firstName }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Email</p>
+        <p class="font-semibold">{{ vm.email }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Téléphone</p>
+        <p class="font-semibold">{{ vm.phone ?? '-' }}</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Adresse -->
+  <article class="mt-6 p-5 rounded-xl border border-white/10 bg-white/5">
+    <h2 class="text-xl font-bold">Adresse</h2>
+
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2">
+        <p class="text-sm opacity-70">Rue</p>
+        <p class="font-semibold">{{ vm.street ?? '-' }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Ville</p>
+        <p class="font-semibold">{{ vm.city ?? '-' }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Code postal</p>
+        <p class="font-semibold">{{ vm.postcode ?? '-' }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm opacity-70">Pays</p>
+        <p class="font-semibold">{{ vm.country ?? '-' }}</p>
+      </div>
+
+      <div class="md:col-span-2">
+        <p class="text-sm opacity-70">Adresse complète</p>
+        <p class="font-semibold">
+          {{
+            (vm.street ?? '') +
+            ((vm.postcode || vm.city) ? ', ' : '') +
+            ((vm.postcode ?? '') + ' ' + (vm.city ?? '')).trim() +
+            (vm.country ? ', ' + vm.country : '')
+          }}
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Actions -->
+  <article class="mt-6 p-5 rounded-xl border border-white/10 bg-white/5">
+    <h2 class="text-xl font-bold">Actions</h2>
+
+    <div class="mt-4 flex flex-col md:flex-row gap-3">
+      <button
+        type="button"
+        class="group relative inline-flex items-center justify-center px-6 py-3 font-bold text-white transition-all duration-200 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.5)]"
+      >
+        Modifier mes informations
+      </button>
+
+      <button
+        type="button"
+        class="inline-flex items-center justify-center px-6 py-3 font-bold rounded-full border border-white/20 hover:border-white/40 transition-all duration-200"
+      >
+        Se déconnecter
+      </button>
+    </div>
+  </article>
+</section>

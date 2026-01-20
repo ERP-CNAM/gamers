@@ -1,0 +1,91 @@
+<form
+  (ngSubmit)="onSubmit()"
+  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-lg max-w-10/12"
+>
+  <div class="flex justify-center p-8">
+    <img src="/logo.png" alt="logo" class="w-32" />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName"> Prénom </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="firstName"
+      name="firstName"
+      [(ngModel)]="firstName"
+      type="text"
+      placeholder="Prénom"
+    />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+      Nom de famille
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="lastName"
+      name="lastName"
+      [(ngModel)]="lastName"
+      type="text"
+      placeholder="Nom de famille"
+    />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Adresse email </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="email"
+      name="email"
+      [(ngModel)]="email"
+      type="text"
+      placeholder="Adresse email"
+    />
+  </div>
+  <!-- <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+      Nom d'utilisateur
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="username"
+      name="username"
+      [(ngModel)]="username"
+      type="text"
+      placeholder="Nom d'utilisateur"
+    />
+  </div> -->
+  <div class="mb-6">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Mot de passe </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      id="password"
+      name="password"
+      [(ngModel)]="password"
+      type="password"
+      placeholder="******************"
+    />
+    <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmedpassword">
+        Confirmer le mot de passe
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+        id="confirmedpassword"
+        name="confirmedpassword"
+        [(ngModel)]="confirmedpassword"
+        type="password"
+        placeholder="******************"
+      />
+      <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center">
+    <button
+      class="bg-(--gamerz-black) hover:bg-(--gamerz-black-light) text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+      type="submit"
+    >
+      S'inscrire
+    </button>
+  </div>
+</form>

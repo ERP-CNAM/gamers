@@ -1,0 +1,14 @@
+<section class="catalogue">
+  <h1>Catalogue</h1>
+
+  <div class="grid">
+    <a
+      class="card"
+      *ngFor="let game of games; trackBy: trackById"
+      [routerLink]="['/detail', game.id]"
+    >
+      <img class="cover" [src]="coverUrl(game)" [alt]="'Couverture de ' + game.name" />
+      <div class="name">{{ game.name }}</div>
+    </a>
+  </div>
+</section>
