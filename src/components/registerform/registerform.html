@@ -1,6 +1,6 @@
 <form
   (ngSubmit)="onSubmit()"
-  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-lg max-w-10/12"
+  class="bg-white shadow-md rounded px-8 pt-6 pb-16 mb-4 w-lg max-w-10/12"
 >
   <div class="flex justify-center p-8">
     <img src="/logo.png" alt="logo" class="w-32" />
@@ -39,6 +39,77 @@
       type="text"
       placeholder="Adresse email"
     />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="phone"> Téléphone </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="phone"
+      name="phone"
+      [(ngModel)]="phone"
+      type="tel"
+      placeholder="Téléphone"
+    />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="dateOfBirth">
+      Date de naissance
+    </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="dateOfBirth"
+      name="dateOfBirth"
+      [(ngModel)]="dateOfBirth"
+      type="date"
+    />
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="address"> Adresse </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      id="address"
+      name="address"
+      [(ngModel)]="address"
+      type="text"
+      placeholder="Adresse"
+    />
+  </div>
+  <div class="flex gap-4 mb-4">
+    <div class="w-1/2">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="postalCode">
+        Code postal
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="postalCode"
+        name="postalCode"
+        [(ngModel)]="postalCode"
+        type="text"
+        placeholder="Code postal"
+      />
+    </div>
+    <div class="w-1/2">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="city"> Ville </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="city"
+        name="city"
+        [(ngModel)]="city"
+        type="text"
+        placeholder="Ville"
+      />
+    </div>
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="country"> Pays </label>
+    <select
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+      id="country"
+      name="country"
+      [(ngModel)]="country"
+    >
+      <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
+    </select>
   </div>
   <!-- <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
