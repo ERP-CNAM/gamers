@@ -19,13 +19,33 @@ export class AuthApiService extends AuthService {
   userId = signal<number | null>(null);
 
   login(email: string, password: string): Observable<boolean> {
-    return this.http.post<any>(`${environment.apiUrl}/login`, { email, password }).pipe(
+    const body = {
+      clientName: environment.clientName,
+      clientVersion: environment.clientVersion,
+      serviceName: 'back',
+      path: '/auth/login',
+      debug: false,
+      payload: {
+        email,
+        password,
+      },
+    };
+    return this.http.post<any>(`${environment.apiUrl}`, body).pipe(
+      map((response) => {
+        if (response.success && response.payload) {
+          const user = response.payload.user;
+          user.token = response.payload.token;
+          user.balance = user.balance || 0;
+          return user;
+        }
+        return null;
+      }),
       tap((user) => this.setSession(user)),
       map((user) => !!user),
       catchError((error) => {
         console.error('Erreur de connexion API:', error);
         return of(false);
-      })
+      }),
     );
   }
 
@@ -33,7 +53,7 @@ export class AuthApiService extends AuthService {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
   ): Observable<boolean> {
     return this.http
       .post<any>(`${environment.apiUrl}/register`, { email, password, firstName, lastName })
@@ -43,7 +63,7 @@ export class AuthApiService extends AuthService {
         catchError((error) => {
           console.error("Erreur d'inscription API:", error);
           return of(false);
-        })
+        }),
       );
   }
 
