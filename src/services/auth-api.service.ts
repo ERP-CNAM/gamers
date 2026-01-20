@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { AuthService, UserStatus } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap, catchError, of } from 'rxjs';
+import { map, Observable, tap, catchError, of, switchMap } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable()
@@ -54,17 +54,44 @@ export class AuthApiService extends AuthService {
     password: string,
     firstName: string,
     lastName: string,
+    phone: string,
+    address: string,
+    city: string,
+    postalCode: string,
+    country: string,
+    dateOfBirth: string,
   ): Observable<boolean> {
-    return this.http
-      .post<any>(`${environment.apiUrl}/register`, { email, password, firstName, lastName })
-      .pipe(
-        tap((user) => this.setSession(user)),
-        map((user) => !!user),
-        catchError((error) => {
-          console.error("Erreur d'inscription API:", error);
-          return of(false);
-        }),
-      );
+    const body = {
+      clientName: environment.clientName,
+      clientVersion: environment.clientVersion,
+      serviceName: 'back',
+      path: '/users',
+      debug: false,
+      payload: {
+        firstName,
+        lastName,
+        email,
+        password,
+        phone,
+        address,
+        city,
+        postalCode,
+        country,
+        dateOfBirth,
+      },
+    };
+    return this.http.post<any>(`${environment.apiUrl}`, body).pipe(
+      switchMap((response) => {
+        if (response.success) {
+          return this.login(email, password);
+        }
+        return of(false);
+      }),
+      catchError((error) => {
+        console.error("Erreur d'inscription API:", error);
+        return of(false);
+      }),
+    );
   }
 
   private setSession(user: any): void {
