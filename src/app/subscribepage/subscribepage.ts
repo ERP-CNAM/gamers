@@ -15,7 +15,8 @@ import { AuthService } from '../../services/auth.service';
 export class Subscribepage {
   private subscriptionService = inject(SubscriptionService);
   private authService = inject(AuthService)
-  subscriptionHistory: SubscriptionListElement[] | undefined = this.subscriptionService.getSubscriptionHistory()
+  subscriptionHistory: SubscriptionListElement[] = this.subscriptionService.getSubscriptionHistory() ?? [] 
+  currentSubscription: SubscriptionListElement = this.subscriptionService.getCurrentSubscription(this.subscriptionHistory)
   remainingBalance = this.authService.remainingBalance;
 
 }
