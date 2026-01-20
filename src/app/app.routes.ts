@@ -8,6 +8,7 @@ import { restrictConnectedUser, restrictNotConnectedUser } from './auth-guard';
 import { Contactuspage } from './contactuspage/contactuspage';
 import { NotFoundpage } from './not-foundpage/not-foundpage';
 import { Registerpage } from './registerpage/registerpage';
+import { Cataloguepage} from './cataloguepage/cataloguepage';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
@@ -17,6 +18,8 @@ export const routes: Routes = [
   { path: 'profil', component: Profilepage },
   { path: 'register', component: Registerpage },
   { path: 'contact-us', component: Contactuspage, canActivate: [restrictNotConnectedUser] },
+  { path: 'catalogue', component: Cataloguepage },
+
 
   { path: '**', component: NotFoundpage },
 ];
