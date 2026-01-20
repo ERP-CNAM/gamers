@@ -20,7 +20,13 @@ export abstract class AuthService {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    phone: string,
+    address: string,
+    city: string,
+    postalCode: string,
+    country: string,
+    dateOfBirth: string,
   ): Observable<boolean>;
   abstract toggleSubscription(): void;
 }
