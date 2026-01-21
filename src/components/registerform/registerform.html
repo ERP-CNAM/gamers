@@ -18,12 +18,13 @@
       placeholder="Prénom"
       required
     />
-    <div
-      *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="firstNameInput.errors?.['required']">Le prénom est obligatoire.</div>
-    </div>
+    @if (firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (firstNameInput.errors?.['required']) {
+          <div>Le prénom est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
@@ -39,12 +40,13 @@
       placeholder="Nom de famille"
       required
     />
-    <div
-      *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="lastNameInput.errors?.['required']">Le nom de famille est obligatoire.</div>
-    </div>
+    @if (lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (lastNameInput.errors?.['required']) {
+          <div>Le nom de famille est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Adresse email </label>
@@ -59,13 +61,16 @@
       required
       email
     />
-    <div
-      *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="emailInput.errors?.['required']">L'adresse email est obligatoire.</div>
-      <div *ngIf="emailInput.errors?.['email']">L'adresse email n'est pas valide.</div>
-    </div>
+    @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (emailInput.errors?.['required']) {
+          <div>L'adresse email est obligatoire.</div>
+        }
+        @if (emailInput.errors?.['email']) {
+          <div>L'adresse email n'est pas valide.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="phone"> Téléphone </label>
@@ -80,13 +85,16 @@
       required
       pattern="[0-9]{10}"
     />
-    <div
-      *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="phoneInput.errors?.['required']">Le téléphone est obligatoire.</div>
-      <div *ngIf="phoneInput.errors?.['pattern']">Le téléphone doit contenir 10 chiffres.</div>
-    </div>
+    @if (phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (phoneInput.errors?.['required']) {
+          <div>Le téléphone est obligatoire.</div>
+        }
+        @if (phoneInput.errors?.['pattern']) {
+          <div>Le téléphone doit contenir 10 chiffres.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="dateOfBirth">
@@ -101,12 +109,13 @@
       type="date"
       required
     />
-    <div
-      *ngIf="dateOfBirthInput.invalid && (dateOfBirthInput.dirty || dateOfBirthInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="dateOfBirthInput.errors?.['required']">La date de naissance est obligatoire.</div>
-    </div>
+    @if (dateOfBirthInput.invalid && (dateOfBirthInput.dirty || dateOfBirthInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (dateOfBirthInput.errors?.['required']) {
+          <div>La date de naissance est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="address"> Adresse </label>
@@ -120,12 +129,13 @@
       placeholder="Adresse"
       required
     />
-    <div
-      *ngIf="addressInput.invalid && (addressInput.dirty || addressInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="addressInput.errors?.['required']">L'adresse est obligatoire.</div>
-    </div>
+    @if (addressInput.invalid && (addressInput.dirty || addressInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (addressInput.errors?.['required']) {
+          <div>L'adresse est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="flex gap-4 mb-4">
     <div class="w-1/2">
@@ -143,15 +153,16 @@
         required
         pattern="[0-9]{5}"
       />
-      <div
-        *ngIf="postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)"
-        class="text-red-500 text-xs italic"
-      >
-        <div *ngIf="postalCodeInput.errors?.['required']">Le code postal est obligatoire.</div>
-        <div *ngIf="postalCodeInput.errors?.['pattern']">
-          Le code postal doit contenir 5 chiffres.
+      @if (postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)) {
+        <div class="text-red-500 text-xs italic">
+          @if (postalCodeInput.errors?.['required']) {
+            <div>Le code postal est obligatoire.</div>
+          }
+          @if (postalCodeInput.errors?.['pattern']) {
+            <div>Le code postal doit contenir 5 chiffres.</div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="w-1/2">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="city"> Ville </label>
@@ -165,12 +176,13 @@
         placeholder="Ville"
         required
       />
-      <div
-        *ngIf="cityInput.invalid && (cityInput.dirty || cityInput.touched)"
-        class="text-red-500 text-xs italic"
-      >
-        <div *ngIf="cityInput.errors?.['required']">La ville est obligatoire.</div>
-      </div>
+      @if (cityInput.invalid && (cityInput.dirty || cityInput.touched)) {
+        <div class="text-red-500 text-xs italic">
+          @if (cityInput.errors?.['required']) {
+            <div>La ville est obligatoire.</div>
+          }
+        </div>
+      }
     </div>
   </div>
   <div class="mb-4">
@@ -183,28 +195,18 @@
       #countryInput="ngModel"
       required
     >
-      <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
+      @for (c of countries; track c.code) {
+        <option [value]="c.code">{{ c.name }}</option>
+      }
     </select>
-    <div
-      *ngIf="countryInput.invalid && (countryInput.dirty || countryInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="countryInput.errors?.['required']">Le pays est obligatoire.</div>
-    </div>
+    @if (countryInput.invalid && (countryInput.dirty || countryInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (countryInput.errors?.['required']) {
+          <div>Le pays est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
-  <!-- <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-      Nom d'utilisateur
-    </label>
-    <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      id="username"
-      name="username"
-      [(ngModel)]="username"
-      type="text"
-      placeholder="Nom d'utilisateur"
-    />
-  </div> -->
   <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Mot de passe </label>
     <input
@@ -218,16 +220,16 @@
       required
       minlength="8"
     />
-    <div
-      *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
-      class="text-red-500 text-xs italic"
-    >
-      <div *ngIf="passwordInput.errors?.['required']">Le mot de passe est obligatoire.</div>
-      <div *ngIf="passwordInput.errors?.['minlength']">
-        Le mot de passe doit contenir au moins 8 caractères.
+    @if (passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (passwordInput.errors?.['required']) {
+          <div>Le mot de passe est obligatoire.</div>
+        }
+        @if (passwordInput.errors?.['minlength']) {
+          <div>Le mot de passe doit contenir au moins 8 caractères.</div>
+        }
       </div>
-    </div>
-    <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
+    }
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmedpassword">
         Confirmer le mot de passe
@@ -242,28 +244,23 @@
         placeholder="******************"
         required
       />
-      <div
-        *ngIf="
-          confirmedPasswordInput.invalid &&
-          (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
-        "
-        class="text-red-500 text-xs italic"
-      >
-        <div *ngIf="confirmedPasswordInput.errors?.['required']">
-          La confirmation du mot de passe est obligatoire.
+      @if (
+        confirmedPasswordInput.invalid &&
+        (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
+      ) {
+        <div class="text-red-500 text-xs italic">
+          @if (confirmedPasswordInput.errors?.['required']) {
+            <div>La confirmation du mot de passe est obligatoire.</div>
+          }
         </div>
-      </div>
-      <div
-        *ngIf="
-          confirmedPasswordInput.valid &&
-          password !== confirmedpassword &&
-          (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
-        "
-        class="text-red-500 text-xs italic"
-      >
-        Les mots de passe ne correspondent pas.
-      </div>
-      <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
+      }
+      @if (
+        confirmedPasswordInput.valid &&
+        password !== confirmedpassword &&
+        (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
+      ) {
+        <div class="text-red-500 text-xs italic">Les mots de passe ne correspondent pas.</div>
+      }
     </div>
   </div>
 

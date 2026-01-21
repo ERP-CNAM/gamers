@@ -1,12 +1,11 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registerform',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule],
   templateUrl: './registerform.html',
   styleUrl: './registerform.css',
 })
