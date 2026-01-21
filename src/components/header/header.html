@@ -1,4 +1,7 @@
-<header class="bg-gray-900">
+<header
+  class="bg-gray-900 fixed top-0 w-full z-50 transition-transform duration-300"
+  [class.-translate-y-full]="!isHeaderVisible"
+>
   <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
     <div class="flex lg:flex-1">
       <a routerLink="/">
@@ -32,123 +35,138 @@
 
     <div class="hidden lg:flex lg:gap-x-12">
       @for (link of filteredLinks; track link.label) {
-      <a
-        routerLink="{{ link.href }}"
-        class="text-sm/6 font-semibold text-white link-underline link-underline-black"
-        >{{ link.label }}</a
-      >
+        <a
+          routerLink="{{ link.href }}"
+          class="text-sm/6 font-semibold text-white link-underline link-underline-black"
+          >{{ link.label }}</a
+        >
       }
     </div>
 
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       @if (!authService.isLoggedIn()) {
-      <a routerLink="/login" class="text-sm font-semibold text-white cursor-pointer"
-        >Connexion &rarr;</a
-      >
-      } @else {
-      <div class="flex items-center gap-4">
-        <div class="flex flex-col">
-          <span class="text-gray-400 text-xs font-bold"
-            >{{ authService.firstName() }} {{ authService.lastName() }}</span
-          >
-          <span class="text-gray-400 text-xs"
-            >Solde restant : {{ authService.remainingBalance() }}€</span
-          >
-        </div>
-        <button
-          (click)="toggleUserMenu()"
-          type="button"
-          class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+        <a routerLink="/login" class="text-sm font-semibold text-white cursor-pointer"
+          >Connexion &rarr;</a
         >
-          <span class="sr-only">Ouvrir le menu utilisateur</span>
-          <img
-            src="/user_logo.webp"
-            class="h-10 w-10 object-cover rounded-full border-2 border-transparent hover:border-indigo-500 transition-all"
-          />
-        </button>
-      </div>
+      } @else {
+        <div class="flex items-center gap-4">
+          <div class="flex flex-col">
+            <span class="text-gray-400 text-xs font-bold flex items-center gap-1">
+              {{ authService.firstName() }} {{ authService.lastName() }}
+              @if (authService.isSubscribed()) {
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-3 text-blue-500"
+                >
+                  <title>Abonné</title>
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              }
+            </span>
+            <span class="text-gray-400 text-xs"
+              >Solde restant : {{ authService.remainingBalance() }}€</span
+            >
+          </div>
+          <button
+            (click)="toggleUserMenu()"
+            type="button"
+            class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+          >
+            <span class="sr-only">Ouvrir le menu utilisateur</span>
+            <img
+              src="/user_logo.webp"
+              class="h-10 w-10 object-cover rounded-full border-2 border-transparent hover:border-indigo-500 transition-all"
+            />
+          </button>
+        </div>
       }
     </div>
   </nav>
 
   @if (isUserMenuOpen) {
-  <div
-    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none animate-in fade-in zoom-in duration-100"
-    role="menu"
-  >
-    <a
-      routerLink="/profil"
-      class="block px-4 py-2 text-sm text-white hover:bg-gray-800"
-      role="menuitem"
-    >
-      Mon Profil
-    </a>
-
-    <a
-      routerLink="/subscribe"
-      class="block px-4 py-2 w-full text-left text-sm text-white hover:bg-gray-800"
-      role="menuitem"
-    >
-      S'abonner
-    </a>
-    
-    <button
-      (click)="authService.logout()"
-      class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-800"
-      role="menuitem"
-    >
-      Se déconnecter
-    </button>
-  </div>
-
-  <div class="fixed inset-0 z-0" (click)="closeUserMenu()"></div>
-  } @if (isMobileMenuOpen) {
-
-  <div class="lg:hidden" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 z-50 bg-black/50" (click)="toggleMobileMenu()"></div>
-
     <div
-      class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10"
+      class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none animate-in fade-in zoom-in duration-100"
+      role="menu"
     >
-      <div class="flex items-center justify-between">
-        <a routerLink="/" class="-m-1.5 p-1.5">
-          <img
-            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-            alt=""
-            class="h-8 w-auto"
-          />
-        </a>
-        <button
-          type="button"
-          (click)="toggleMobileMenu()"
-          class="-m-2.5 rounded-md p-2.5 text-gray-400"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            class="size-6"
-          >
-            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
+      <a
+        routerLink="/profil"
+        class="block px-4 py-2 text-sm text-white hover:bg-gray-800"
+        role="menuitem"
+      >
+        Mon Profil
+      </a>
 
-      <div class="mt-6 flow-root">
-        <div class="-my-6 divide-y divide-white/10">
-          <div class="py-6">
-            @for (item of filteredLinks; track item.label) {
-            <a
-              routerLink="{{ item.href }}"
-              class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
-              >{{ item.label }}</a
+      <a
+        routerLink="/subscribe"
+        class="block px-4 py-2 w-full text-left text-sm text-white hover:bg-gray-800"
+        role="menuitem"
+      >
+        S'abonner
+      </a>
+
+      <button
+        (click)="authService.logout()"
+        class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-800"
+        role="menuitem"
+      >
+        Se déconnecter
+      </button>
+    </div>
+
+    <div class="fixed inset-0 z-0" (click)="closeUserMenu()"></div>
+  }
+  @if (isMobileMenuOpen) {
+    <div class="lg:hidden" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 z-50 bg-black/50" (click)="toggleMobileMenu()"></div>
+
+      <div
+        class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10"
+      >
+        <div class="flex items-center justify-between">
+          <a routerLink="/" class="-m-1.5 p-1.5">
+            <img
+              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+              alt=""
+              class="h-8 w-auto"
+            />
+          </a>
+          <button
+            type="button"
+            (click)="toggleMobileMenu()"
+            class="-m-2.5 rounded-md p-2.5 text-gray-400"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="size-6"
             >
-            }
+              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="mt-6 flow-root">
+          <div class="-my-6 divide-y divide-white/10">
+            <div class="py-6">
+              @for (item of filteredLinks; track item.label) {
+                <a
+                  routerLink="{{ item.href }}"
+                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >{{ item.label }}</a
+                >
+              }
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   }
 </header>

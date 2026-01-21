@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { Header } from '../../components/header/header';
 import { Hero } from '../../components/hero/hero';
-import { Footer } from '../../components/footer/footer';
+import { DiscoverPage } from '../discover/discover';
 
 @Component({
   selector: 'app-homepage',
-  imports: [Hero],
+  imports: [Hero, DiscoverPage],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })

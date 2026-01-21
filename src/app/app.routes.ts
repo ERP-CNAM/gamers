@@ -20,7 +20,6 @@ export const routes: Routes = [
   { path: 'register', component: Registerpage, canActivate: [restrictConnectedUser] },
   { path: 'contact-us', component: Contactuspage },
   { path: 'catalogue', component: Cataloguepage },
-  { path: 'discover', component: DiscoverPage },
 
   { path: '**', component: NotFoundpage },
 ];
