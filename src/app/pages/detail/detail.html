@@ -1,7 +1,6 @@
 <div *ngIf="game; else notFound" class="min-h-screen bg-gray-900 text-white p-8">
   <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-
-    <img [src]="game.cover?.url" class="rounded-xl shadow-lg" alt="{{ game.name }}"/>
+    <img [src]="game.cover?.url" class="rounded-xl shadow-lg" alt="{{ game.name }}" />
 
     <div class="md:col-span-2 space-y-4">
       <h1 class="text-4xl font-bold">{{ game.name }}</h1>
@@ -9,15 +8,15 @@
       <p class="text-gray-300">{{ game.summary }}</p>
 
       <div class="flex flex-wrap gap-2">
-        <span *ngFor="let genre of game.genres"
-              class="px-3 py-1 bg-purple-600 rounded-full text-sm">
+        <span
+          *ngFor="let genre of game.genres"
+          class="px-3 py-1 bg-purple-600 rounded-full text-sm"
+        >
           {{ genre.name }}
         </span>
       </div>
 
-      <p class="text-sm text-gray-400">
-        Sortie : {{ getYear(game.first_release_date) }}
-      </p>
+      <p class="text-sm text-gray-400">Sortie : {{ getYear(game.first_release_date) }}</p>
 
       <p class="text-sm text-gray-400">
         Plateformes :
@@ -27,7 +26,7 @@
       </p>
 
       <p class="text-yellow-400 text-lg" *ngIf="game.rating">
-        ⭐ {{ game.rating | number:'1.0-0' }}/100
+        ⭐ {{ game.rating | number: '1.0-0' }}/100
       </p>
 
       <div class="mt-4 text-gray-400">
@@ -36,16 +35,39 @@
         <p><strong>Mode de jeu :</strong> {{ game.mode || 'Solo' }}</p>
       </div>
 
-      <a routerLink="/" class="text-blue-400 hover:text-blue-300 transition">
-        ← Retour
-      </a>
-    </div>
+      <div class="flex items-center gap-6 pt-6">
+        @if (game.playlink != null) {
+          <a
+            [href]="game.playlink"
+            target="_blank"
+            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+              />
+            </svg>
+            Jouer
+          </a>
+        }
 
+        <a routerLink="/" class="text-gray-400 hover:text-white transition font-medium">
+          ← Retour au catalogue
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
 <ng-template #notFound>
-  <div class="min-h-screen flex items-center justify-center text-gray-400">
-    Jeu introuvable
-  </div>
+  <div class="min-h-screen flex items-center justify-center text-gray-400">Jeu introuvable</div>
 </ng-template>
