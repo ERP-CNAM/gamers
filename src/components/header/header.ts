@@ -23,7 +23,6 @@ export class Header {
     { label: 'Accueil', href: '/' },
     { label: 'Catalogue', href: '/catalogue' },
     { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
-    { label: 'Nous contacter', href: '/contact-us' },
   ];
 
   get filteredLinks() {
