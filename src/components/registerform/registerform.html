@@ -1,6 +1,7 @@
 <form
   (ngSubmit)="onSubmit()"
   class="bg-white shadow-md rounded px-8 pt-6 pb-16 mb-4 w-lg max-w-10/12"
+  #registerForm="ngForm"
 >
   <div class="flex justify-center p-8">
     <img src="/logo.png" alt="logo" class="w-32" />
@@ -12,9 +13,18 @@
       id="firstName"
       name="firstName"
       [(ngModel)]="firstName"
+      #firstNameInput="ngModel"
       type="text"
       placeholder="Prénom"
+      required
     />
+    @if (firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (firstNameInput.errors?.['required']) {
+          <div>Le prénom est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
@@ -25,9 +35,18 @@
       id="lastName"
       name="lastName"
       [(ngModel)]="lastName"
+      #lastNameInput="ngModel"
       type="text"
       placeholder="Nom de famille"
+      required
     />
+    @if (lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (lastNameInput.errors?.['required']) {
+          <div>Le nom de famille est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Adresse email </label>
@@ -36,9 +55,22 @@
       id="email"
       name="email"
       [(ngModel)]="email"
-      type="text"
+      #emailInput="ngModel"
+      type="email"
       placeholder="Adresse email"
+      required
+      email
     />
+    @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (emailInput.errors?.['required']) {
+          <div>L'adresse email est obligatoire.</div>
+        }
+        @if (emailInput.errors?.['email']) {
+          <div>L'adresse email n'est pas valide.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="phone"> Téléphone </label>
@@ -47,9 +79,22 @@
       id="phone"
       name="phone"
       [(ngModel)]="phone"
+      #phoneInput="ngModel"
       type="tel"
       placeholder="Téléphone"
+      required
+      pattern="[0-9]{10}"
     />
+    @if (phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (phoneInput.errors?.['required']) {
+          <div>Le téléphone est obligatoire.</div>
+        }
+        @if (phoneInput.errors?.['pattern']) {
+          <div>Le téléphone doit contenir 10 chiffres.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="dateOfBirth">
@@ -60,8 +105,17 @@
       id="dateOfBirth"
       name="dateOfBirth"
       [(ngModel)]="dateOfBirth"
+      #dateOfBirthInput="ngModel"
       type="date"
+      required
     />
+    @if (dateOfBirthInput.invalid && (dateOfBirthInput.dirty || dateOfBirthInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (dateOfBirthInput.errors?.['required']) {
+          <div>La date de naissance est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="address"> Adresse </label>
@@ -70,9 +124,18 @@
       id="address"
       name="address"
       [(ngModel)]="address"
+      #addressInput="ngModel"
       type="text"
       placeholder="Adresse"
+      required
     />
+    @if (addressInput.invalid && (addressInput.dirty || addressInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (addressInput.errors?.['required']) {
+          <div>L'adresse est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
   <div class="flex gap-4 mb-4">
     <div class="w-1/2">
@@ -84,9 +147,22 @@
         id="postalCode"
         name="postalCode"
         [(ngModel)]="postalCode"
+        #postalCodeInput="ngModel"
         type="text"
         placeholder="Code postal"
+        required
+        pattern="[0-9]{5}"
       />
+      @if (postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)) {
+        <div class="text-red-500 text-xs italic">
+          @if (postalCodeInput.errors?.['required']) {
+            <div>Le code postal est obligatoire.</div>
+          }
+          @if (postalCodeInput.errors?.['pattern']) {
+            <div>Le code postal doit contenir 5 chiffres.</div>
+          }
+        </div>
+      }
     </div>
     <div class="w-1/2">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="city"> Ville </label>
@@ -95,9 +171,18 @@
         id="city"
         name="city"
         [(ngModel)]="city"
+        #cityInput="ngModel"
         type="text"
         placeholder="Ville"
+        required
       />
+      @if (cityInput.invalid && (cityInput.dirty || cityInput.touched)) {
+        <div class="text-red-500 text-xs italic">
+          @if (cityInput.errors?.['required']) {
+            <div>La ville est obligatoire.</div>
+          }
+        </div>
+      }
     </div>
   </div>
   <div class="mb-4">
@@ -107,23 +192,21 @@
       id="country"
       name="country"
       [(ngModel)]="country"
+      #countryInput="ngModel"
+      required
     >
-      <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
+      @for (c of countries; track c.code) {
+        <option [value]="c.code">{{ c.name }}</option>
+      }
     </select>
+    @if (countryInput.invalid && (countryInput.dirty || countryInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (countryInput.errors?.['required']) {
+          <div>Le pays est obligatoire.</div>
+        }
+      </div>
+    }
   </div>
-  <!-- <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-      Nom d'utilisateur
-    </label>
-    <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      id="username"
-      name="username"
-      [(ngModel)]="username"
-      type="text"
-      placeholder="Nom d'utilisateur"
-    />
-  </div> -->
   <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Mot de passe </label>
     <input
@@ -131,10 +214,22 @@
       id="password"
       name="password"
       [(ngModel)]="password"
+      #passwordInput="ngModel"
       type="password"
       placeholder="******************"
+      required
+      minlength="8"
     />
-    <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
+    @if (passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)) {
+      <div class="text-red-500 text-xs italic">
+        @if (passwordInput.errors?.['required']) {
+          <div>Le mot de passe est obligatoire.</div>
+        }
+        @if (passwordInput.errors?.['minlength']) {
+          <div>Le mot de passe doit contenir au moins 8 caractères.</div>
+        }
+      </div>
+    }
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmedpassword">
         Confirmer le mot de passe
@@ -144,17 +239,36 @@
         id="confirmedpassword"
         name="confirmedpassword"
         [(ngModel)]="confirmedpassword"
+        #confirmedPasswordInput="ngModel"
         type="password"
         placeholder="******************"
+        required
       />
-      <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
+      @if (
+        confirmedPasswordInput.invalid &&
+        (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
+      ) {
+        <div class="text-red-500 text-xs italic">
+          @if (confirmedPasswordInput.errors?.['required']) {
+            <div>La confirmation du mot de passe est obligatoire.</div>
+          }
+        </div>
+      }
+      @if (
+        confirmedPasswordInput.valid &&
+        password !== confirmedpassword &&
+        (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
+      ) {
+        <div class="text-red-500 text-xs italic">Les mots de passe ne correspondent pas.</div>
+      }
     </div>
   </div>
 
   <div class="flex items-center justify-center">
     <button
-      class="bg-(--gamerz-black) hover:bg-(--gamerz-black-light) text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+      class="bg-(--gamerz-black) hover:bg-(--gamerz-black-light) text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       type="submit"
+      [disabled]="registerForm.invalid"
     >
       S'inscrire
     </button>
