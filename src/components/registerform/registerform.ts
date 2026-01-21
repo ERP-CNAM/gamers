@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './registerform.css',
 })
 export class Registerform {
+  @ViewChild('registerForm') registerForm!: NgForm;
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -28,6 +29,10 @@ export class Registerform {
   countries = [{ code: 'FR', name: 'France' }];
 
   onSubmit() {
+    if (this.registerForm.invalid) {
+      return;
+    }
+
     if (this.password !== this.confirmedpassword) {
       alert('Les mots de passe ne correspondent pas.');
       return;

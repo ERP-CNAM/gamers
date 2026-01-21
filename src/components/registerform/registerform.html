@@ -1,6 +1,7 @@
 <form
   (ngSubmit)="onSubmit()"
   class="bg-white shadow-md rounded px-8 pt-6 pb-16 mb-4 w-lg max-w-10/12"
+  #registerForm="ngForm"
 >
   <div class="flex justify-center p-8">
     <img src="/logo.png" alt="logo" class="w-32" />
@@ -12,9 +13,17 @@
       id="firstName"
       name="firstName"
       [(ngModel)]="firstName"
+      #firstNameInput="ngModel"
       type="text"
       placeholder="Prénom"
+      required
     />
+    <div
+      *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="firstNameInput.errors?.['required']">Le prénom est obligatoire.</div>
+    </div>
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
@@ -25,9 +34,17 @@
       id="lastName"
       name="lastName"
       [(ngModel)]="lastName"
+      #lastNameInput="ngModel"
       type="text"
       placeholder="Nom de famille"
+      required
     />
+    <div
+      *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="lastNameInput.errors?.['required']">Le nom de famille est obligatoire.</div>
+    </div>
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Adresse email </label>
@@ -36,9 +53,19 @@
       id="email"
       name="email"
       [(ngModel)]="email"
-      type="text"
+      #emailInput="ngModel"
+      type="email"
       placeholder="Adresse email"
+      required
+      email
     />
+    <div
+      *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="emailInput.errors?.['required']">L'adresse email est obligatoire.</div>
+      <div *ngIf="emailInput.errors?.['email']">L'adresse email n'est pas valide.</div>
+    </div>
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="phone"> Téléphone </label>
@@ -47,9 +74,19 @@
       id="phone"
       name="phone"
       [(ngModel)]="phone"
+      #phoneInput="ngModel"
       type="tel"
       placeholder="Téléphone"
+      required
+      pattern="[0-9]{10}"
     />
+    <div
+      *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="phoneInput.errors?.['required']">Le téléphone est obligatoire.</div>
+      <div *ngIf="phoneInput.errors?.['pattern']">Le téléphone doit contenir 10 chiffres.</div>
+    </div>
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="dateOfBirth">
@@ -60,8 +97,16 @@
       id="dateOfBirth"
       name="dateOfBirth"
       [(ngModel)]="dateOfBirth"
+      #dateOfBirthInput="ngModel"
       type="date"
+      required
     />
+    <div
+      *ngIf="dateOfBirthInput.invalid && (dateOfBirthInput.dirty || dateOfBirthInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="dateOfBirthInput.errors?.['required']">La date de naissance est obligatoire.</div>
+    </div>
   </div>
   <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="address"> Adresse </label>
@@ -70,9 +115,17 @@
       id="address"
       name="address"
       [(ngModel)]="address"
+      #addressInput="ngModel"
       type="text"
       placeholder="Adresse"
+      required
     />
+    <div
+      *ngIf="addressInput.invalid && (addressInput.dirty || addressInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="addressInput.errors?.['required']">L'adresse est obligatoire.</div>
+    </div>
   </div>
   <div class="flex gap-4 mb-4">
     <div class="w-1/2">
@@ -84,9 +137,21 @@
         id="postalCode"
         name="postalCode"
         [(ngModel)]="postalCode"
+        #postalCodeInput="ngModel"
         type="text"
         placeholder="Code postal"
+        required
+        pattern="[0-9]{5}"
       />
+      <div
+        *ngIf="postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)"
+        class="text-red-500 text-xs italic"
+      >
+        <div *ngIf="postalCodeInput.errors?.['required']">Le code postal est obligatoire.</div>
+        <div *ngIf="postalCodeInput.errors?.['pattern']">
+          Le code postal doit contenir 5 chiffres.
+        </div>
+      </div>
     </div>
     <div class="w-1/2">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="city"> Ville </label>
@@ -95,9 +160,17 @@
         id="city"
         name="city"
         [(ngModel)]="city"
+        #cityInput="ngModel"
         type="text"
         placeholder="Ville"
+        required
       />
+      <div
+        *ngIf="cityInput.invalid && (cityInput.dirty || cityInput.touched)"
+        class="text-red-500 text-xs italic"
+      >
+        <div *ngIf="cityInput.errors?.['required']">La ville est obligatoire.</div>
+      </div>
     </div>
   </div>
   <div class="mb-4">
@@ -107,9 +180,17 @@
       id="country"
       name="country"
       [(ngModel)]="country"
+      #countryInput="ngModel"
+      required
     >
       <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
     </select>
+    <div
+      *ngIf="countryInput.invalid && (countryInput.dirty || countryInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="countryInput.errors?.['required']">Le pays est obligatoire.</div>
+    </div>
   </div>
   <!-- <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
@@ -131,9 +212,21 @@
       id="password"
       name="password"
       [(ngModel)]="password"
+      #passwordInput="ngModel"
       type="password"
       placeholder="******************"
+      required
+      minlength="8"
     />
+    <div
+      *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+      class="text-red-500 text-xs italic"
+    >
+      <div *ngIf="passwordInput.errors?.['required']">Le mot de passe est obligatoire.</div>
+      <div *ngIf="passwordInput.errors?.['minlength']">
+        Le mot de passe doit contenir au moins 8 caractères.
+      </div>
+    </div>
     <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmedpassword">
@@ -144,17 +237,41 @@
         id="confirmedpassword"
         name="confirmedpassword"
         [(ngModel)]="confirmedpassword"
+        #confirmedPasswordInput="ngModel"
         type="password"
         placeholder="******************"
+        required
       />
+      <div
+        *ngIf="
+          confirmedPasswordInput.invalid &&
+          (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
+        "
+        class="text-red-500 text-xs italic"
+      >
+        <div *ngIf="confirmedPasswordInput.errors?.['required']">
+          La confirmation du mot de passe est obligatoire.
+        </div>
+      </div>
+      <div
+        *ngIf="
+          confirmedPasswordInput.valid &&
+          password !== confirmedpassword &&
+          (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
+        "
+        class="text-red-500 text-xs italic"
+      >
+        Les mots de passe ne correspondent pas.
+      </div>
       <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
     </div>
   </div>
 
   <div class="flex items-center justify-center">
     <button
-      class="bg-(--gamerz-black) hover:bg-(--gamerz-black-light) text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+      class="bg-(--gamerz-black) hover:bg-(--gamerz-black-light) text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       type="submit"
+      [disabled]="registerForm.invalid"
     >
       S'inscrire
     </button>
