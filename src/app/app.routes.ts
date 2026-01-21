@@ -9,7 +9,7 @@ import { Contactuspage } from './contactuspage/contactuspage';
 import { NotFoundpage } from './not-foundpage/not-foundpage';
 import { Registerpage } from './registerpage/registerpage';
 import { DiscoverPage } from './discover/discover';
-import { Cataloguepage} from './cataloguepage/cataloguepage';
+import { Cataloguepage } from './cataloguepage/cataloguepage';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'subscribe', component: Subscribepage, canActivate: [restrictNotConnectedUser] },
   { path: 'profil', component: Profilepage, canActivate: [restrictNotConnectedUser] },
   { path: 'register', component: Registerpage, canActivate: [restrictConnectedUser] },
-  { path: 'contact-us', component: Contactuspage, canActivate: [restrictNotConnectedUser]  },
+  { path: 'contact-us', component: Contactuspage },
   { path: 'catalogue', component: Cataloguepage },
   { path: 'discover', component: DiscoverPage },
 
