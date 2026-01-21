@@ -26,4 +26,5 @@ export interface Game {
   multiplayer?: boolean;
   developer?: string;
   mode?: string;
+  playlink?: string | null;
 }

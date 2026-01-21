@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 // import { AuthService } from '../../services/AuthService';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -15,11 +15,14 @@ export class Header {
   isMobileMenuOpen = false;
   isMobileProductExpanded = false;
   isUserMenuOpen = false;
+  isHeaderVisible = true;
+  lastScrollPosition = 0;
 
   navLinks = [
     // { label: 'Découvrir GamerZ', href: '/discover', showIfSubscribed: false },
-    { label: "S'abonner", href: '/subscribe', showIfSubscribed: true },
-    { label: 'Catalogue', href: '/catalogue', showIfSubscribed: true },
+    { label: 'Accueil', href: '/' },
+    { label: 'Catalogue', href: '/catalogue' },
+    { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
     { label: 'Nous contacter', href: '/contact-us' },
   ];
 
@@ -42,5 +45,25 @@ export class Header {
 
   closeUserMenu() {
     this.isUserMenuOpen = false;
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    const currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+    // Si on est tout en haut de la page (ou presque), on affiche toujours le header
+    if (currentScroll < 10) {
+      this.isHeaderVisible = true;
+    }
+    // Si on descend (scroll actuel > ancien scroll), on cache le header
+    else if (currentScroll > this.lastScrollPosition) {
+      this.isHeaderVisible = false;
+    }
+    // Si on remonte, on réaffiche le header
+    else {
+      this.isHeaderVisible = true;
+    }
+
+    this.lastScrollPosition = currentScroll;
   }
 }

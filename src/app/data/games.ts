@@ -10,11 +10,17 @@ export const GAMES: Game[] = [
     first_release_date: 1488326400,
     rating: 97.5,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3p2d.webp' },
-    genres: [{ id: 12, name: 'Adventure' }, { id: 31, name: 'RPG' }],
-    platforms: [{ id: 130, name: 'Nintendo Switch' }, { id: 41, name: 'Wii U' }],
+    genres: [
+      { id: 12, name: 'Adventure' },
+      { id: 31, name: 'RPG' },
+    ],
+    platforms: [
+      { id: 130, name: 'Nintendo Switch' },
+      { id: 41, name: 'Wii U' },
+    ],
     multiplayer: false,
     developer: 'Nintendo',
-    mode: 'Solo'
+    mode: 'Solo',
   },
   {
     id: 2,
@@ -24,33 +30,38 @@ export const GAMES: Game[] = [
     first_release_date: 1607558400,
     rating: 76.3,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/coaih8.webp' },
-    genres: [{ id: 31, name: 'RPG' }, { id: 5, name: 'Shooter' }],
+    genres: [
+      { id: 31, name: 'RPG' },
+      { id: 5, name: 'Shooter' },
+    ],
     platforms: [
       { id: 6, name: 'PC (Windows)' },
       { id: 48, name: 'PlayStation 4' },
-      { id: 49, name: 'Xbox One' }
+      { id: 49, name: 'Xbox One' },
     ],
     multiplayer: true,
     developer: 'CD Projekt Red',
-    mode: 'Solo / Multijoueur'
+    mode: 'Solo / Multijoueur',
   },
   {
     id: 3,
     name: 'Elden Ring',
-    summary:
-      'Un action-RPG sombre et exigeant créé par FromSoftware et George R. R. Martin.',
+    summary: 'Un action-RPG sombre et exigeant créé par FromSoftware et George R. R. Martin.',
     first_release_date: 1645747200,
     rating: 96.1,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co4jni.jpg' },
-    genres: [{ id: 12, name: 'Adventure' }, { id: 31, name: 'RPG' }],
+    genres: [
+      { id: 12, name: 'Adventure' },
+      { id: 31, name: 'RPG' },
+    ],
     platforms: [
       { id: 6, name: 'PC (Windows)' },
       { id: 48, name: 'PlayStation 5' },
-      { id: 167, name: 'Xbox Series X|S' }
+      { id: 167, name: 'Xbox Series X|S' },
     ],
     multiplayer: false,
     developer: 'FromSoftware',
-    mode: 'Solo'
+    mode: 'Solo',
   },
   {
     id: 4,
@@ -60,49 +71,58 @@ export const GAMES: Game[] = [
     first_release_date: 1524153600,
     rating: 94.2,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tmu.webp' },
-    genres: [{ id: 12, name: 'Adventure' }, { id: 15, name: 'Action' }],
+    genres: [
+      { id: 12, name: 'Adventure' },
+      { id: 15, name: 'Action' },
+    ],
     platforms: [{ id: 48, name: 'PlayStation 4' }],
     multiplayer: false,
     developer: 'Santa Monica Studio',
-    mode: 'Solo'
+    mode: 'Solo',
   },
   {
     id: 5,
     name: 'Hollow Knight',
-    summary:
-      'Un metroidvania sombre et exigeant dans un monde insecte mystérieux et magnifique.',
+    summary: 'Un metroidvania sombre et exigeant dans un monde insecte mystérieux et magnifique.',
     first_release_date: 1496812800,
     rating: 90.5,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/coaes9.webp' },
-    genres: [{ id: 31, name: 'RPG' }, { id: 15, name: 'Action' }],
+    genres: [
+      { id: 31, name: 'RPG' },
+      { id: 15, name: 'Action' },
+    ],
     platforms: [
       { id: 6, name: 'PC (Windows)' },
       { id: 48, name: 'PlayStation 4' },
-      { id: 130, name: 'Nintendo Switch' }
+      { id: 130, name: 'Nintendo Switch' },
     ],
     multiplayer: false,
     developer: 'Team Cherry',
-    mode: 'Solo'
+    mode: 'Solo',
   },
   {
     id: 6,
     name: 'Horizon Forbidden West',
-    summary:
-      'Aloy explore les terres post-apocalyptiques pleines de machines et de mystères.',
+    summary: 'Aloy explore les terres post-apocalyptiques pleines de machines et de mystères.',
     first_release_date: 1643923200,
     rating: 88.4,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co2gvu.webp' },
-    genres: [{ id: 12, name: 'Adventure' }, { id: 15, name: 'Action' }],
-    platforms: [{ id: 48, name: 'PlayStation 5' }, { id: 49, name: 'PlayStation 4' }],
+    genres: [
+      { id: 12, name: 'Adventure' },
+      { id: 15, name: 'Action' },
+    ],
+    platforms: [
+      { id: 48, name: 'PlayStation 5' },
+      { id: 49, name: 'PlayStation 4' },
+    ],
     multiplayer: false,
     developer: 'Guerrilla Games',
-    mode: 'Solo'
+    mode: 'Solo',
   },
   {
     id: 7,
     name: 'Mario Kart 8 Deluxe',
-    summary:
-      'Courses de kart fun et dynamiques avec tous vos personnages préférés de Nintendo.',
+    summary: 'Courses de kart fun et dynamiques avec tous vos personnages préférés de Nintendo.',
     first_release_date: 1466083200,
     rating: 92.0,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co213p.webp' },
@@ -110,7 +130,7 @@ export const GAMES: Game[] = [
     platforms: [{ id: 130, name: 'Nintendo Switch' }],
     multiplayer: true,
     developer: 'Nintendo',
-    mode: 'Multijoueur'
+    mode: 'Multijoueur',
   },
   {
     id: 8,
@@ -120,17 +140,20 @@ export const GAMES: Game[] = [
     first_release_date: 1432752000,
     rating: 93.7,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/coaarl.webp' },
-    genres: [{ id: 31, name: 'RPG' }, { id: 15, name: 'Action' }],
+    genres: [
+      { id: 31, name: 'RPG' },
+      { id: 15, name: 'Action' },
+    ],
     platforms: [
       { id: 6, name: 'PC (Windows)' },
       { id: 48, name: 'PlayStation 4' },
-      { id: 49, name: 'Xbox One' }
+      { id: 49, name: 'Xbox One' },
     ],
     multiplayer: false,
     developer: 'CD Projekt Red',
-    mode: 'Solo'
+    mode: 'Solo',
   },
-    {
+  {
     id: 9,
     name: 'Zenless Zone Zero',
     summary:
@@ -138,14 +161,32 @@ export const GAMES: Game[] = [
     first_release_date: 1704067200, // exemple : 31/12/2023
     rating: 85.0,
     cover: { url: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co90je.webp' }, // exemple image
-    genres: [{ id: 31, name: 'RPG' }, { id: 15, name: 'Action' }],
+    genres: [
+      { id: 31, name: 'RPG' },
+      { id: 15, name: 'Action' },
+    ],
     platforms: [
       { id: 6, name: 'PC (Windows)' },
       { id: 48, name: 'PlayStation 5' },
-      { id: 49, name: 'Xbox Series X|S' }
+      { id: 49, name: 'Xbox Series X|S' },
     ],
     multiplayer: true,
     developer: 'HoYoverse',
-    mode: 'Solo / Multijoueur'
-  }
+    mode: 'Solo / Multijoueur',
+  },
+  {
+    id: 10,
+    name: 'La défense des tours',
+    summary:
+      'La défense des tours est un jeu de type Tower défense sur le thème de Star Wars. Il a remporté le CNAMY Award 2025.',
+    first_release_date: 1704067200, // exemple : 31/12/2023
+    rating: 101.0,
+    cover: { url: 'sw.webp' }, // exemple image
+    genres: [{ id: 31, name: 'Tower Defense' }],
+    platforms: [{ id: 6, name: 'PC (Windows)' }],
+    multiplayer: true,
+    developer: 'Alizée H., Winness R., Vladimir S',
+    mode: 'Solo',
+    playlink: 'https://wrkt.itch.io/la-defense-des-tours',
+  },
 ];

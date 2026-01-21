@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { Game } from '../models/game.model';
 import { GAMES } from '../data/games';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cataloguepage',
@@ -13,6 +14,7 @@ import { GAMES } from '../data/games';
   styleUrls: ['./cataloguepage.css'],
 })
 export class Cataloguepage {
+  authService = inject(AuthService);
   games: Game[] = GAMES;
 
   trackById(_index: number, game: Game): number {
