@@ -26,7 +26,9 @@ export class ProfileApiService {
       serviceName: 'back',
       path: `/users/${userId}`,
       debug: false,
-      payload: {},
+      payload: {
+        userId: userId,
+      },
     };
 
     const headers = new HttpHeaders({
@@ -36,8 +38,9 @@ export class ProfileApiService {
     });
 
     return this.http
-      .post<ApiEnvelope<ApiUserDto>>(environment.apiUrl, body, {
-        headers: headers.set('X-Request-Type', 'GET'),
+      .request<ApiEnvelope<ApiUserDto>>('GET', environment.apiUrl, {
+        body,
+        headers
       })
       .pipe(
         map((res) => {
