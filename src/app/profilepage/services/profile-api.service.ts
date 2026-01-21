@@ -35,11 +35,11 @@ export class ProfileApiService {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
+      'X-HTTP-Method-Override': 'GET',
     });
 
     return this.http
-      .request<ApiEnvelope<ApiUserDto>>('GET', environment.apiUrl, {
-        body,
+      .post<ApiEnvelope<ApiUserDto>>(environment.apiUrl, body, {
         headers
       })
       .pipe(
@@ -53,7 +53,7 @@ export class ProfileApiService {
           console.error('Erreur API profile:', err);
           return of(this.fallbackVm());
         })
-  );
+    );
   }
 
   private mapUserToVm(u: ApiUserDto): ProfileVm {
