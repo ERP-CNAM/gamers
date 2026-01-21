@@ -45,7 +45,7 @@ export class AuthMockService extends AuthService {
       catchError((err) => {
         console.error('Erreur de connexion: ', err);
         return of(false);
-      })
+      }),
     );
   }
 
@@ -64,7 +64,13 @@ export class AuthMockService extends AuthService {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    phone: string,
+    address: string,
+    city: string,
+    postalCode: string,
+    country: string,
+    dateOfBirth: string,
   ): Observable<boolean> {
     console.log('Mock Register: Création du compte pour', email);
 
@@ -87,7 +93,7 @@ export class AuthMockService extends AuthService {
       catchError((err) => {
         console.error('Erreur Mock Register:', err);
         return of(false);
-      })
+      }),
     );
   }
 
