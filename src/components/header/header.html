@@ -161,9 +161,51 @@
               @for (item of filteredLinks; track item.label) {
                 <a
                   routerLink="{{ item.href }}"
+                  (click)="toggleMobileMenu()"
                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >{{ item.label }}</a
                 >
+              }
+            </div>
+            <div class="py-6">
+              @if (!authService.isLoggedIn()) {
+                <a
+                  routerLink="/login"
+                  (click)="toggleMobileMenu()"
+                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                >
+                  Se connecter
+                </a>
+              } @else {
+                <div class="flex items-center gap-x-3 mb-3 px-3">
+                  <img src="/user_logo.webp" alt="" class="h-10 w-10 rounded-full bg-gray-800" />
+                  <div class="text-sm/6">
+                    <div class="font-semibold text-white">
+                      {{ authService.firstName() }} {{ authService.lastName() }}
+                    </div>
+                    <div class="text-gray-400">Solde : {{ authService.remainingBalance() }}€</div>
+                  </div>
+                </div>
+                <a
+                  routerLink="/profil"
+                  (click)="toggleMobileMenu()"
+                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                >
+                  Mon Profil
+                </a>
+                <a
+                  routerLink="/subscribe"
+                  (click)="toggleMobileMenu()"
+                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                >
+                  S'abonner
+                </a>
+                <button
+                  (click)="authService.logout(); toggleMobileMenu()"
+                  class="-mx-3 block w-full text-left rounded-lg px-3 py-2.5 text-base/7 font-semibold text-red-500 hover:bg-white/5"
+                >
+                  Se déconnecter
+                </button>
               }
             </div>
           </div>
