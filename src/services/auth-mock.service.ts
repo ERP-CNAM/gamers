@@ -18,6 +18,38 @@ export class AuthMockService extends AuthService {
   lastName = signal<string | null>(null);
   userId = signal<number | null>(null);
 
+  constructor() {
+    super();
+    this.tryRestoreSession();
+  }
+
+  private tryRestoreSession() {
+    const stored = localStorage.getItem('gamerz_session');
+    if (stored) {
+      try {
+        const user = JSON.parse(stored);
+        this.setSession(user, false);
+      } catch {
+        localStorage.removeItem('gamerz_session');
+      }
+    }
+  }
+
+  private setSession(user: any, save = true) {
+    this.isLoggedIn.set(true);
+    this.email.set(user.email);
+    this.status.set(user.status);
+    this.remainingBalance.set(user.balance);
+    this.token.set(user.token);
+    this.firstName.set(user.firstName);
+    this.lastName.set(user.lastName);
+    this.userId.set(user.id);
+
+    if (save) {
+      localStorage.setItem('gamerz_session', JSON.stringify(user));
+    }
+  }
+
   login(email: string, password: string): Observable<boolean> {
     return this.http.get<any>('mock/users.json').pipe(
       tap((res) => console.log('JSON:', res)),
@@ -29,14 +61,8 @@ export class AuthMockService extends AuthService {
 
       tap((user) => {
         if (user) {
-          this.isLoggedIn.set(true);
-          this.email.set(user.email);
-          this.status.set(user.status);
-          this.remainingBalance.set(user.balance);
-          this.token.set('FAKE-TOKEN-12345');
-          this.firstName.set(user.firstName);
-          this.lastName.set(user.lastName);
-          this.userId.set(user.id);
+          const sessionUser = { ...user, token: 'FAKE-TOKEN-12345' };
+          this.setSession(sessionUser);
         } else {
           console.warn('Aucun utilisateur ne correspond aux identifiants.');
         }
@@ -52,6 +78,7 @@ export class AuthMockService extends AuthService {
   }
 
   logout() {
+    localStorage.removeItem('gamerz_session');
     this.isLoggedIn.set(false);
     this.email.set(null);
     this.status.set('BLOCKED');
@@ -80,14 +107,16 @@ export class AuthMockService extends AuthService {
     return of(true).pipe(
       delay(1000),
       tap(() => {
-        this.isLoggedIn.set(true);
-        this.email.set(email);
-        this.firstName.set(firstName);
-        this.lastName.set(lastName);
-        this.userId.set(12345);
-        this.status.set('OK');
-        this.remainingBalance.set(0);
-        this.token.set('FAKE-TOKEN-NEW-USER-' + Math.random());
+        const newUser = {
+          email,
+          firstName,
+          lastName,
+          id: 12345,
+          status: 'OK',
+          balance: 0,
+          token: 'FAKE-TOKEN-NEW-USER-' + Math.random(),
+        };
+        this.setSession(newUser);
 
         console.log('Mock Register: Données injectées dans les signals');
       }),
