@@ -3,6 +3,7 @@ import { AuthService, UserStatus } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, tap, catchError, of, switchMap } from 'rxjs';
 import { environment } from '../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthApiService extends AuthService {
@@ -17,6 +18,7 @@ export class AuthApiService extends AuthService {
   firstName = signal<string | null>(null);
   lastName = signal<string | null>(null);
   userId = signal<number | null>(null);
+  router = inject(Router);
 
   login(email: string, password: string): Observable<boolean> {
     const body = {
@@ -116,6 +118,7 @@ export class AuthApiService extends AuthService {
     this.firstName.set(null);
     this.lastName.set(null);
     this.userId.set(null);
+    this.router.navigate(['/']);
   }
 
   toggleSubscription() {}

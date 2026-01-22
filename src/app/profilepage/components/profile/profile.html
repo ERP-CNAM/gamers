@@ -1,4 +1,4 @@
-<section *ngIf="vm$ | async as vm" class="p-6 max-w-5xl mx-auto" >
+<section *ngIf="vm$ | async as vm" class="p-6 max-w-5xl mx-auto">
   <header class="flex items-center justify-between gap-4">
     <h1 class="text-3xl font-black tracking-tight">Profil</h1>
   </header>
@@ -60,9 +60,9 @@
         <p class="font-semibold">
           {{
             (vm.street ?? '') +
-            ((vm.postcode || vm.city) ? ', ' : '') +
-            ((vm.postcode ?? '') + ' ' + (vm.city ?? '')).trim() +
-            (vm.country ? ', ' + vm.country : '')
+              (vm.postcode || vm.city ? ', ' : '') +
+              ((vm.postcode ?? '') + ' ' + (vm.city ?? '')).trim() +
+              (vm.country ? ', ' + vm.country : '')
           }}
         </p>
       </div>
@@ -83,7 +83,8 @@
 
       <button
         type="button"
-        class="inline-flex items-center justify-center px-6 py-3 font-bold rounded-full border border-white/20 hover:border-white/40 transition-all duration-200"
+        (click)="authService.logout()"
+        class="cursor-pointer hover:underline inline-flex items-center justify-center px-6 py-3 font-bold rounded-full border border-white/20 hover:border-white/40 transition-all duration-200"
       >
         Se déconnecter
       </button>

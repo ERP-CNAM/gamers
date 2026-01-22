@@ -1,20 +1,18 @@
-import { AsyncPipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProfileDataService } from '../../services/profile-data.service';
-import { InvoiceVm, ProfileVm } from '../../models/profile.vm';
+import { ProfileApiService } from '../../services/profile-api.service';
+import { ProfileVm } from '../../models/profile.vm';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [NgIf, NgFor, DecimalPipe, AsyncPipe],
+  imports: [NgIf, AsyncPipe],
   templateUrl: './profile.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent {
-  private readonly data = inject(ProfileDataService);
-
-  readonly vm$: Observable<ProfileVm> = this.data.getProfile();
-
-  readonly trackByInvoiceRef = (_: number, i: InvoiceVm) => i.ref;
+  private readonly data = inject(ProfileApiService);
+  readonly vm$ = this.data.getProfile();
+  authService = inject(AuthService);
 }
