@@ -5,20 +5,20 @@ import { GameService } from '../../services/game.service';
 import { Game } from '../../models/game.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Adsbanner } from '../../../components/adsbanner/adsbanner';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink], // ✅ nécessaire pour *ngIf, pipes et routerLink
-  templateUrl: './detail.html'
+  imports: [CommonModule, RouterLink, Adsbanner], // ✅ nécessaire pour *ngIf, pipes et routerLink
+  templateUrl: './detail.html',
 })
 export class DetailPage implements OnInit {
-
   game?: Game;
 
   constructor(
     private route: ActivatedRoute,
-    private gameService: GameService
+    private gameService: GameService,
   ) {}
 
   ngOnInit(): void {

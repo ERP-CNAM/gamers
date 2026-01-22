@@ -1,0 +1,74 @@
+@if (isVisible()) {
+  <div class="bottom-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+    <div
+      class="relative bg-white rounded-xl shadow-2xl overflow-hidden max-w-4xl w-full pointer-events-auto border border-gray-200 group animate-[slideIn_0.5s_ease-out]"
+    >
+      <button
+        (click)="close()"
+        class="absolute top-2 right-2 z-20 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-all duration-200 backdrop-blur-sm"
+        title="Fermer la publicité"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+
+      <a
+        [href]="linkUrl"
+        target="_blank"
+        class="block relative hover:opacity-95 transition-opacity"
+      >
+        <div
+          class="flex h-32 md:h-40 w-full items-center justify-between px-6 md:px-12 bg-gradient-to-r from-[#6324a0] via-[#9154cf] to-[#c9a7eb]"
+        >
+          <div class="hidden sm:flex items-center gap-2 text-white/90">
+            <img src="/ad/logo1.png" alt="Ad Image" class="h-16 w-16 object-contain" />
+            <span class="text-2xl font-medium tracking-tight">Info Broadcaster</span>
+          </div>
+
+          <img src="/ad/rainbow.png" alt="Ad Image" class="h-16 w-16 object-contain" />
+          <img
+            src="/ad/matou.png"
+            alt="Ad Image"
+            class="h-32 w-16 object-contain absolute bottom-6 right-80"
+          />
+
+          <div
+            class="flex flex-col items-end md:items-start text-right md:text-left space-y-1 md:space-y-2"
+          >
+            <div>
+              <h2 class="text-white text-lg md:text-2xl font-bold leading-tight">
+                Diffusez vos idées !
+              </h2>
+              <p class="text-white/80 text-xs md:text-sm hidden sm:block">
+                Connectez-vous maintenant !
+              </p>
+            </div>
+            <div
+              class="inline-block bg-white text-[#6324a0] px-4 py-1.5 rounded-lg text-xs md:text-sm font-bold shadow-sm group-hover:bg-[#7c3aed] group-hover:text-white transition-colors"
+            >
+              Visiter le site
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="absolute bottom-0 left-0 bg-yellow-500 text-black text-[9px] font-bold px-2 py-0.5 uppercase tracking-wider"
+        >
+          Sponsorisé
+        </div>
+      </a>
+    </div>
+  </div>
+}
