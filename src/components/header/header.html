@@ -97,6 +97,7 @@
       <a
         routerLink="/profil"
         class="block px-4 py-2 text-sm text-white hover:bg-gray-800"
+        (click)="closeUserMenu()"
         role="menuitem"
       >
         Mon Profil
@@ -105,13 +106,14 @@
       <a
         routerLink="/subscribe"
         class="block px-4 py-2 w-full text-left text-sm text-white hover:bg-gray-800"
+        (click)="closeUserMenu()"
         role="menuitem"
       >
         S'abonner
       </a>
 
       <button
-        (click)="authService.logout()"
+        (click)="authService.logout(); closeUserMenu()"
         class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-800"
         role="menuitem"
       >
