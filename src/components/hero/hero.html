@@ -1,9 +1,11 @@
-<div
-  class="h-screen w-full bg-[url('/hero_bg.png')] bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden"
->
-  <div class="z-10 flex h-full flex-col items-center justify-end pb-24 text-center px-4">
+<div class="relative h-screen w-full overflow-hidden">
+  <div class="fixed inset-0 z-[-1] bg-[url('/hero_bg.png')] bg-cover bg-center bg-no-repeat">
+    <div class="absolute inset-0 via-transparent to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 flex h-full flex-col items-center justify-end pb-24 text-center px-4">
     <h1
-      class="max-w-4xl text-3xl sm:text-5xl md:text-7xl font-black tracking-tight text-white uppercase italic"
+      class="max-w-4xl text-3xl sm:text-5xl md:text-7xl font-black tracking-tight text-white uppercase italic drop-shadow-2xl"
     >
       Jouez a vos jeux favoris.<br />
       Partout. <span class="text-cyan-400">Instantanément.</span>
