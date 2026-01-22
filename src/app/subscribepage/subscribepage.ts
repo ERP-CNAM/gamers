@@ -1,24 +1,28 @@
 import { Component, inject, signal } from '@angular/core';
-import { Card } from "../../components/card/card";
+import { Card } from '../../components/card/card';
 import { environment } from '../../environments/environment';
 import { SubscriptionListElement } from '../models/subscription-list.model';
 import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
 import { SubscriptionService } from '../services/subscription.service';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Adsbanner } from '../../components/adsbanner/adsbanner';
 
 @Component({
   selector: 'app-subscribepage',
-  imports: [Card],
+  imports: [Card, Adsbanner],
   templateUrl: './subscribepage.html',
   styleUrl: './subscribepage.css',
 })
 export class Subscribepage {
   private subscriptionService = inject(SubscriptionService);
-  private authService = inject(AuthService)
+  private authService = inject(AuthService);
   private fb = inject(FormBuilder);
-  subscriptionHistory: SubscriptionListElement[] = this.subscriptionService.getSubscriptionHistory() ?? [] 
-  currentSubscription: SubscriptionListElement = this.subscriptionService.getCurrentSubscription(this.subscriptionHistory)
+  subscriptionHistory: SubscriptionListElement[] =
+    this.subscriptionService.getSubscriptionHistory() ?? [];
+  currentSubscription: SubscriptionListElement = this.subscriptionService.getCurrentSubscription(
+    this.subscriptionHistory,
+  );
   remainingBalance = this.authService.remainingBalance;
 
   isFormOpen = signal(false);
@@ -29,7 +33,7 @@ export class Subscribepage {
     contractCode: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
     monthlyAmount: [0, [Validators.required, Validators.min(0)]],
-    promoCode: ['']
+    promoCode: [''],
   });
 
   openForm() {
@@ -56,7 +60,7 @@ export class Subscribepage {
         contractCode: formValue.contractCode,
         startDate: formValue.startDate,
         monthlyAmount: formValue.monthlyAmount,
-        promoCode: formValue.promoCode || null
+        promoCode: formValue.promoCode || null,
       };
 
       //await this.subscriptionService.createSubscription(payload);
@@ -69,5 +73,4 @@ export class Subscribepage {
       this.isSubmitting.set(false);
     }
   }
-
 }

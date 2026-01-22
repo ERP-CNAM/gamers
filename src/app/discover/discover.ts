@@ -5,6 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-discover',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './discover.html'
+  templateUrl: './discover.html',
 })
 export class DiscoverPage {}

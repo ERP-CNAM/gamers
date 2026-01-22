@@ -1,167 +1,194 @@
-<div class="h-screen w-full bg-gray-800">
-    <div class="max-w-6xl mx-auto pt-20 pb-4">
-        <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold text-white">Abonnements</h1>
+<div class="w-full bg-gray-800">
+  <div class="max-w-6xl mx-auto pt-20 pb-4">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold text-white">Abonnements</h1>
+      <button
+        type="button"
+        (click)="openForm()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors"
+        aria-label="Ajouter un abonnement"
+      >
+        Ajouter un abonnement
+      </button>
+    </div>
+    <app-card title="Solde restant" [info]="remainingBalance()"></app-card>
+  </div>
+  <div class="max-w-6xl mx-auto py-4">
+    <app-card title="Abonnement">
+      <div class="flex gap-4">
+        <app-card title="Status" [info]="currentSubscription.status"></app-card>
+        <app-card title="Contrat" [info]="currentSubscription.contractCode"></app-card>
+        <app-card title="Code promotionnel" [info]="currentSubscription.promoCode"></app-card>
+      </div>
+    </app-card>
+  </div>
+  <div class="max-w-6xl mx-auto py-4">
+    <app-card title="Historique d'abonnement">
+      <div class="flex flex-col gap-6">
+        @for (subscription of subscriptionHistory; track subscription.id) {
+          <div class="flex gap-4">
+            <app-card title="Formule" [info]="subscription.contractCode"></app-card>
+            <app-card title="Date de départ" [info]="subscription.startDate"></app-card>
+            <app-card title="Date de fin" [info]="subscription.endDate"></app-card>
+          </div>
+        }
+      </div>
+    </app-card>
+    <br /><br />
+    <app-adsbanner></app-adsbanner>
+  </div>
+
+  @if (isFormOpen()) {
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      (click)="closeForm()"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div
+        class="bg-gray-700 rounded-lg p-6 max-w-md w-full mx-4"
+        (click)="$event.stopPropagation()"
+      >
+        <h2 id="modal-title" class="text-xl font-bold text-white mb-4">Nouvel abonnement</h2>
+
+        <form (ngSubmit)="onSubmit()">
+          <div class="space-y-4">
+            <div>
+              <label for="userId" class="block text-sm font-medium text-gray-300 mb-1">
+                ID Utilisateur *
+              </label>
+              <input
+                id="userId"
+                type="text"
+                formControlName="userId"
+                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                [class.border-red-500]="
+                  subscriptionForm.controls.userId.touched &&
+                  subscriptionForm.controls.userId.invalid
+                "
+                required
+                aria-required="true"
+              />
+              @if (
+                subscriptionForm.controls.userId.touched && subscriptionForm.controls.userId.invalid
+              ) {
+                <p class="mt-1 text-sm text-red-400" role="alert">L'ID utilisateur est requis</p>
+              }
+            </div>
+
+            <div>
+              <label for="contractCode" class="block text-sm font-medium text-gray-300 mb-1">
+                Code contrat *
+              </label>
+              <input
+                id="contractCode"
+                type="text"
+                formControlName="contractCode"
+                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                [class.border-red-500]="
+                  subscriptionForm.controls.contractCode.touched &&
+                  subscriptionForm.controls.contractCode.invalid
+                "
+                required
+                aria-required="true"
+              />
+              @if (
+                subscriptionForm.controls.contractCode.touched &&
+                subscriptionForm.controls.contractCode.invalid
+              ) {
+                <p class="mt-1 text-sm text-red-400" role="alert">Le code contrat est requis</p>
+              }
+            </div>
+
+            <div>
+              <label for="startDate" class="block text-sm font-medium text-gray-300 mb-1">
+                Date de début *
+              </label>
+              <input
+                id="startDate"
+                type="date"
+                formControlName="startDate"
+                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                [class.border-red-500]="
+                  subscriptionForm.controls.startDate.touched &&
+                  subscriptionForm.controls.startDate.invalid
+                "
+                required
+                aria-required="true"
+              />
+              @if (
+                subscriptionForm.controls.startDate.touched &&
+                subscriptionForm.controls.startDate.invalid
+              ) {
+                <p class="mt-1 text-sm text-red-400" role="alert">La date de début est requise</p>
+              }
+            </div>
+
+            <div>
+              <label for="monthlyAmount" class="block text-sm font-medium text-gray-300 mb-1">
+                Montant mensuel (€) *
+              </label>
+              <input
+                id="monthlyAmount"
+                type="number"
+                step="0.01"
+                min="0"
+                formControlName="monthlyAmount"
+                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                [class.border-red-500]="
+                  subscriptionForm.controls.monthlyAmount.touched &&
+                  subscriptionForm.controls.monthlyAmount.invalid
+                "
+                required
+                aria-required="true"
+              />
+              @if (
+                subscriptionForm.controls.monthlyAmount.touched &&
+                subscriptionForm.controls.monthlyAmount.invalid
+              ) {
+                <p class="mt-1 text-sm text-red-400" role="alert">
+                  Le montant mensuel doit être supérieur ou égal à 0
+                </p>
+              }
+            </div>
+
+            <div>
+              <label for="promoCode" class="block text-sm font-medium text-gray-300 mb-1">
+                Code promo (optionnel)
+              </label>
+              <input
+                id="promoCode"
+                type="text"
+                formControlName="promoCode"
+                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-6">
             <button
-                type="button"
-                (click)="openForm()"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors"
-                aria-label="Ajouter un abonnement">
-                Ajouter un abonnement
+              type="button"
+              (click)="closeForm()"
+              [disabled]="isSubmitting()"
+              class="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Annuler
             </button>
-        </div>
-        <app-card title="Solde restant" [info]="remainingBalance()"></app-card>
+            <button
+              type="submit"
+              [disabled]="isSubmitting()"
+              class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              @if (isSubmitting()) {
+                <span>Création...</span>
+              } @else {
+                <span>Créer</span>
+              }
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="max-w-6xl mx-auto py-4">
-        <app-card title="Abonnement">
-            <div class="flex gap-4">
-                <app-card title="Status" [info]="currentSubscription.status"></app-card>
-                <app-card title="Contrat" [info]="currentSubscription.contractCode"></app-card>
-                <app-card title="Code promotionnel" [info]="currentSubscription.promoCode"></app-card>
-            </div>
-        </app-card>
-    </div>
-    <div class="max-w-6xl mx-auto py-4">
-        <app-card title="Historique d'abonnement">
-            <div class="flex flex-col gap-6">
-                @for (subscription of subscriptionHistory; track subscription.id) {
-                    <div class="flex gap-4">
-                        <app-card title="Formule" [info]="subscription.contractCode"></app-card>
-                        <app-card title="Date de départ" [info]="subscription.startDate"></app-card>
-                        <app-card title="Date de fin" [info]="subscription.endDate"></app-card>
-                    </div>
-                }
-            </div>
-        </app-card>
-    </div>
-
-    @if (isFormOpen()) {
-        <div 
-            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-            (click)="closeForm()"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title">
-            <div 
-                class="bg-gray-700 rounded-lg p-6 max-w-md w-full mx-4"
-                (click)="$event.stopPropagation()">
-                <h2 id="modal-title" class="text-xl font-bold text-white mb-4">
-                    Nouvel abonnement
-                </h2>
-                
-                <form (ngSubmit)="onSubmit()">
-                    <div class="space-y-4">
-                        <div>
-                            <label for="userId" class="block text-sm font-medium text-gray-300 mb-1">
-                                ID Utilisateur *
-                            </label>
-                            <input
-                                id="userId"
-                                type="text"
-                                formControlName="userId"
-                                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                [class.border-red-500]="subscriptionForm.controls.userId.touched && subscriptionForm.controls.userId.invalid"
-                                required
-                                aria-required="true" />
-                            @if (subscriptionForm.controls.userId.touched && subscriptionForm.controls.userId.invalid) {
-                                <p class="mt-1 text-sm text-red-400" role="alert">
-                                    L'ID utilisateur est requis
-                                </p>
-                            }
-                        </div>
-
-                        <div>
-                            <label for="contractCode" class="block text-sm font-medium text-gray-300 mb-1">
-                                Code contrat *
-                            </label>
-                            <input
-                                id="contractCode"
-                                type="text"
-                                formControlName="contractCode"
-                                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                [class.border-red-500]="subscriptionForm.controls.contractCode.touched && subscriptionForm.controls.contractCode.invalid"
-                                required
-                                aria-required="true" />
-                            @if (subscriptionForm.controls.contractCode.touched && subscriptionForm.controls.contractCode.invalid) {
-                                <p class="mt-1 text-sm text-red-400" role="alert">
-                                    Le code contrat est requis
-                                </p>
-                            }
-                        </div>
-
-                        <div>
-                            <label for="startDate" class="block text-sm font-medium text-gray-300 mb-1">
-                                Date de début *
-                            </label>
-                            <input
-                                id="startDate"
-                                type="date"
-                                formControlName="startDate"
-                                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                [class.border-red-500]="subscriptionForm.controls.startDate.touched && subscriptionForm.controls.startDate.invalid"
-                                required
-                                aria-required="true" />
-                            @if (subscriptionForm.controls.startDate.touched && subscriptionForm.controls.startDate.invalid) {
-                                <p class="mt-1 text-sm text-red-400" role="alert">
-                                    La date de début est requise
-                                </p>
-                            }
-                        </div>
-
-                        <div>
-                            <label for="monthlyAmount" class="block text-sm font-medium text-gray-300 mb-1">
-                                Montant mensuel (€) *
-                            </label>
-                            <input
-                                id="monthlyAmount"
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                formControlName="monthlyAmount"
-                                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                [class.border-red-500]="subscriptionForm.controls.monthlyAmount.touched && subscriptionForm.controls.monthlyAmount.invalid"
-                                required
-                                aria-required="true" />
-                            @if (subscriptionForm.controls.monthlyAmount.touched && subscriptionForm.controls.monthlyAmount.invalid) {
-                                <p class="mt-1 text-sm text-red-400" role="alert">
-                                    Le montant mensuel doit être supérieur ou égal à 0
-                                </p>
-                            }
-                        </div>
-
-                        <div>
-                            <label for="promoCode" class="block text-sm font-medium text-gray-300 mb-1">
-                                Code promo (optionnel)
-                            </label>
-                            <input
-                                id="promoCode"
-                                type="text"
-                                formControlName="promoCode"
-                                class="w-full px-3 py-2 bg-gray-600 text-white rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-                        </div>
-                    </div>
-
-                    <div class="flex gap-3 mt-6">
-                        <button
-                            type="button"
-                            (click)="closeForm()"
-                            [disabled]="isSubmitting()"
-                            class="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                            Annuler
-                        </button>
-                        <button
-                            type="submit"
-                            [disabled]="isSubmitting()"
-                            class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                            @if (isSubmitting()) {
-                                <span>Création...</span>
-                            } @else {
-                                <span>Créer</span>
-                            }
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    }
+  }
 </div>
