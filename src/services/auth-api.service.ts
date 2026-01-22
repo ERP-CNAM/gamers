@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, NgZone, signal } from '@angular/core';
 import { AuthService, UserStatus } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, tap, catchError, of, switchMap } from 'rxjs';
@@ -19,6 +19,7 @@ export class AuthApiService extends AuthService {
   lastName = signal<string | null>(null);
   userId = signal<number | null>(null);
   router = inject(Router);
+  private ngZone = inject(NgZone);
 
   login(email: string, password: string): Observable<boolean> {
     const body = {
@@ -45,7 +46,7 @@ export class AuthApiService extends AuthService {
       tap((user) => this.setSession(user)),
       map((user) => !!user),
       catchError((error) => {
-        console.error('Erreur de connexion API:', error);
+        console.error('Erreur de connexion:', error);
         return of(false);
       }),
     );
@@ -118,7 +119,9 @@ export class AuthApiService extends AuthService {
     this.firstName.set(null);
     this.lastName.set(null);
     this.userId.set(null);
-    this.router.navigate(['/']);
+    this.ngZone.run(() => {
+      this.router.navigate(['/']);
+    });
   }
 
   toggleSubscription() {}

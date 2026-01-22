@@ -48,4 +48,11 @@
     Pas encore inscrit ?
     <a routerLink="/register" class="text-indigo-400 hover:text-indigo-300 font-bold">S'inscrire</a>
   </div>
+  @if (errorMessage) {
+    <div
+      class="mt-4 p-3 bg-red-900/50 border border-red-500 text-red-200 rounded text-sm text-center animate-pulse"
+    >
+      {{ errorMessage }}
+    </div>
+  }
 </form>
