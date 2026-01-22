@@ -2,10 +2,12 @@ import { computed, inject, Injectable, signal, WritableSignal } from '@angular/c
 import { AuthService, UserStatus } from './auth.service';
 import { catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthMockService extends AuthService {
   private http = inject(HttpClient);
+  router = inject(Router);
   isLoggedIn = signal(false);
   email = signal<string | null>(null);
   status = signal<UserStatus>('BLOCKED');
@@ -58,6 +60,7 @@ export class AuthMockService extends AuthService {
     this.firstName.set(null);
     this.lastName.set(null);
     this.userId.set(null);
+    this.router.navigate(['/']);
   }
 
   register(
