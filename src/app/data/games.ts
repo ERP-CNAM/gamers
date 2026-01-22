@@ -203,6 +203,6 @@ export const GAMES: Game[] = [
     developer: 'Fatih B., Tanguy P., Léo H.',
     mode: 'Solo',
     playlink: 'https://wrkt.itch.io/la-defense-des-tours',
-    embedUrl: 'https://itch.io/embed-upload/16213995?color=333333',
+    embedUrl: 'https://itch.io/embed-upload/16214357?color=333333',
   },
 ];

@@ -1,25 +1,29 @@
 <form
   (ngSubmit)="onSubmit()"
-  class="bg-gray-800 shadow-lg rounded-xl px-8 pt-6 pb-8 mb-4 w-full max-w-md min-w-lg border border-gray-700"
+  class="bg-gray-800 shadow-lg rounded-xl px-20 md:px-12 pt-8 pb-10 mb-4 w-full max-w-3xl border border-gray-700"
 >
-  <div class="flex justify-center">
-    <img src="/logo_nobg.png" alt="logo" class="w-64" />
+  <div class="flex justify-center mb-6">
+    <img src="/logo_nobg.png" alt="logo" class="w-36 md:w-40" />
   </div>
-  <div class="mb-4">
-    <label class="block text-gray-300 text-sm font-bold mb-2" for="email"> Email </label>
+
+  <div class="mb-5">
+    <label class="block text-gray-300 text-base font-semibold mb-2" for="email"> Email </label>
     <input
-      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+      class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-500 transition-all"
       id="email"
       name="email"
       [(ngModel)]="email"
       type="text"
-      placeholder="Email"
+      placeholder="votre@email.com"
     />
   </div>
-  <div class="mb-6">
-    <label class="block text-gray-300 text-sm font-bold mb-2" for="password"> Mot de passe </label>
+
+  <div class="mb-8">
+    <label class="block text-gray-300 text-base font-semibold mb-2" for="password">
+      Mot de passe
+    </label>
     <input
-      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+      class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 text-white bg-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-500 transition-all"
       id="password"
       name="password"
       [(ngModel)]="password"
@@ -27,30 +31,34 @@
       placeholder="******************"
       autocomplete="on"
     />
-    <!-- <p class="text-red-500 text-xs italic">Veuillez ecrire un mot de passe.</p> -->
   </div>
-  <div class="flex items-center justify-between">
+
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
     <button
-      class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer transition-colors duration-200"
+      class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline cursor-pointer transition-all duration-200 transform hover:scale-105"
       type="submit"
     >
       Se connecter
     </button>
 
     <a
-      class="inline-block align-baseline font-bold text-sm text-indigo-400 hover:text-indigo-300"
+      class="inline-block align-baseline font-bold text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
       routerLink="#"
     >
       Mot de passe oublié ?
     </a>
   </div>
-  <div class="pt-4 text-end text-gray-400 text-sm">
+
+  <div class="pt-6 mt-6 border-t border-gray-700 text-center sm:text-end text-gray-400 text-sm">
     Pas encore inscrit ?
-    <a routerLink="/register" class="text-indigo-400 hover:text-indigo-300 font-bold">S'inscrire</a>
+    <a routerLink="/register" class="text-indigo-400 hover:text-indigo-300 font-bold ml-1"
+      >S'inscrire</a
+    >
   </div>
+
   @if (errorMessage) {
     <div
-      class="mt-4 p-3 bg-red-900/50 border border-red-500 text-red-200 rounded text-sm text-center animate-pulse"
+      class="mt-6 p-4 bg-red-900/40 border border-red-500 text-red-200 rounded-lg text-sm text-center animate-pulse"
     >
       {{ errorMessage }}
     </div>
