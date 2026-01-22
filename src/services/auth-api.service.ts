@@ -21,6 +21,23 @@ export class AuthApiService extends AuthService {
   router = inject(Router);
   private ngZone = inject(NgZone);
 
+  constructor() {
+    super();
+    this.tryRestoreSession();
+  }
+
+  private tryRestoreSession() {
+    const stored = localStorage.getItem('gamerz_session');
+    if (stored) {
+      try {
+        const user = JSON.parse(stored);
+        this.setSession(user, false);
+      } catch {
+        localStorage.removeItem('gamerz_session');
+      }
+    }
+  }
+
   login(email: string, password: string): Observable<boolean> {
     const body = {
       clientName: environment.clientName,
@@ -97,7 +114,7 @@ export class AuthApiService extends AuthService {
     );
   }
 
-  private setSession(user: any): void {
+  private setSession(user: any, save = true): void {
     if (user) {
       this.isLoggedIn.set(true);
       this.email.set(user.email);
@@ -107,10 +124,15 @@ export class AuthApiService extends AuthService {
       this.firstName.set(user.firstName);
       this.lastName.set(user.lastName);
       this.userId.set(user.id);
+
+      if (save) {
+        localStorage.setItem('gamerz_session', JSON.stringify(user));
+      }
     }
   }
 
   logout() {
+    localStorage.removeItem('gamerz_session');
     this.isLoggedIn.set(false);
     this.email.set(null);
     this.status.set('BLOCKED');
