@@ -188,5 +188,6 @@ export const GAMES: Game[] = [
     developer: 'Alizée H., Winness R., Vladimir S',
     mode: 'Solo',
     playlink: 'https://wrkt.itch.io/la-defense-des-tours',
+    embedUrl: 'https://itch.io/embed-upload/13081263?color=333333',
   },
 ];

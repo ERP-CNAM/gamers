@@ -27,4 +27,5 @@ export interface Game {
   developer?: string;
   mode?: string;
   playlink?: string | null;
+  embedUrl?: string | null;
 }
