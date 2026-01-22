@@ -1,16 +1,43 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ADS } from '../../app/data/ads';
 
 @Component({
   selector: 'app-adsbanner',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './adsbanner.html',
-  styleUrl: './adsbanner.css',
 })
-export class Adsbanner {
-  @Input() linkUrl: string = '#';
+export class Adsbanner implements OnInit, OnDestroy {
+  private sanitizer = inject(DomSanitizer);
 
-  // Gestion de l'état d'affichage (fermé ou ouvert)
   isVisible = signal(true);
+
+  currentAd = signal<{ link: string; html: SafeHtml } | null>(null);
+  private intervalId: any;
+  private currentIndex = Math.floor(Math.random() * ADS.length);
+
+  ngOnInit() {
+    this.updateAd();
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % ADS.length;
+      this.updateAd();
+    }, 5000);
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) clearInterval(this.intervalId);
+  }
+
+  updateAd() {
+    const ad = ADS[this.currentIndex];
+    this.currentAd.set({
+      link: ad.link,
+      // Bypass la sécurité Angular pour afficher le HTML de la pub
+      html: this.sanitizer.bypassSecurityTrustHtml(ad.html),
+    });
+  }
 
   close() {
     this.isVisible.set(false);
