@@ -1,16 +1,18 @@
-<section class="catalogue">
-  <h1>Catalogue</h1>
+<section
+  class="catalogue p-8 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.2)),url('/catalog_bg.jpg')] bg-cover bg-center bg-no-repeat bg-fixed min-h-screen"
+>
+  <h1 class="text-4xl font-bold text-white mb-8">Catalogue</h1>
 
   <div class="grid">
     <a
-      class="card relative group"
+      class="relative group block overflow-hidden rounded-xl bg-gray-800/80 backdrop-blur-sm border border-gray-700 shadow-lg transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-purple-500/20"
       *ngFor="let game of games; trackBy: trackById"
       [routerLink]="['/detail', game.id]"
     >
       <img class="cover" [src]="coverUrl(game)" [alt]="'Couverture de ' + game.name" />
       @if (!authService.isSubscribed()) {
         <div
-          class="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"
+          class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +31,9 @@
           <span class="text-white font-bold text-center">Abonnement requis</span>
         </div>
       }
-      <div class="name">{{ game.name }}</div>
+      <div class="absolute bottom-0 left-0 right-0 p-3 bg-black/50 backdrop-blur-sm">
+        <p class="text-white font-semibold text-sm truncate">{{ game.name }}</p>
+      </div>
     </a>
   </div>
 </section>
