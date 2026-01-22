@@ -36,7 +36,28 @@
       </div>
 
       <div class="flex items-center gap-6 pt-6">
-        @if (game.playlink != null) {
+        @if ($any(game).embedUrl) {
+          <a
+            [routerLink]="['/play', game.id]"
+            class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 duration-200 cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+              />
+            </svg>
+            Jouer maintenant
+          </a>
+        } @else if (game.playlink != null) {
           <a
             [href]="game.playlink"
             target="_blank"

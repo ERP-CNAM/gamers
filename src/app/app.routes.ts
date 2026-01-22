@@ -13,6 +13,7 @@ import { Contactuspage } from './contactuspage/contactuspage';
 import { NotFoundpage } from './not-foundpage/not-foundpage';
 import { Registerpage } from './registerpage/registerpage';
 import { Cataloguepage } from './cataloguepage/cataloguepage';
+import { PlayerPage } from './player/player';
 
 export const routes: Routes = [
   { path: '', component: Homepage },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'register', component: Registerpage, canActivate: [restrictConnectedUser] },
   { path: 'contact-us', component: Contactuspage },
   { path: 'catalogue', component: Cataloguepage },
+  { path: 'play/:id', component: PlayerPage, canActivate: [restrictNotSubscribedUser] },
 
   { path: '**', component: NotFoundpage },
 ];
