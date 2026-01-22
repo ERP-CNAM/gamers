@@ -1,19 +1,26 @@
 server {
     listen 80;
 
+    # En-têtes globaux pour autoriser l'iframe
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "frame-src 'self' https://itch.io https://*.itch.io;" always;
+
     location / {
         root /usr/share/nginx/html;
         index index.html;
         try_files $uri $uri/ /index.html;
     }
 
-    # Proxy pour rediriger /connect vers le service erp-connect
     location /connect {
-        proxy_pass ${API_URL}; # Cette variable sera injectée par Docker
+        proxy_pass ${API_URL};
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
+        
+        # Désactiver les restrictions CORS si l'API bloque aussi
+        proxy_hide_header 'Access-Control-Allow-Origin';
+        add_header 'Access-Control-Allow-Origin' '*' always;
     }
 }
