@@ -235,4 +235,20 @@ export const GAMES: Game[] = [
     playlink: 'https://axelmunch.itch.io/crossy-vosges',
     embedUrl: 'https://itch.io/embed-upload/16215674?color=8bc263',
   },
+  {
+    id: 14,
+    name: 'Nectar Defense',
+    summary:
+      "Nectar Defense est un jeu de type Tower Defense inspiré du célèbre jeu Plants vs. Zombies (Non en vrai j'en sais rien). ",
+    first_release_date: 1704067200,
+    rating: 95.0,
+    cover: { url: 'nectar.png' },
+    genres: [{ id: 15, name: 'Arcade' }],
+    platforms: [{ id: 6, name: 'PC (Windows)' }],
+    multiplayer: false,
+    developer: 'Axel M., Maël E., Charline B.',
+    mode: 'Solo',
+    playlink: 'https://axelmunch.itch.io/nectar-defense',
+    embedUrl: 'https://itch.io/embed-upload/16216731?color=cdbba8',
+  },
 ];
