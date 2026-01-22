@@ -1,15 +1,15 @@
 <form
   (ngSubmit)="onSubmit()"
-  class="bg-white shadow-md rounded px-8 pt-6 pb-16 mb-4 w-lg max-w-10/12"
+  class="bg-gray-800 shadow-lg rounded-xl px-8 pt-6 pb-8 mb-4 w-full max-w-2xl border border-gray-700"
   #registerForm="ngForm"
 >
   <div class="flex justify-center p-8">
-    <img src="/logo.png" alt="logo" class="w-32" />
+    <img src="/logo_nobg.png" alt="logo" class="w-32" />
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName"> Prénom </label>
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="firstName"> Prénom </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="firstName"
       name="firstName"
       [(ngModel)]="firstName"
@@ -19,7 +19,7 @@
       required
     />
     @if (firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (firstNameInput.errors?.['required']) {
           <div>Le prénom est obligatoire.</div>
         }
@@ -27,11 +27,11 @@
     }
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="lastName">
       Nom de famille
     </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="lastName"
       name="lastName"
       [(ngModel)]="lastName"
@@ -41,7 +41,7 @@
       required
     />
     @if (lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (lastNameInput.errors?.['required']) {
           <div>Le nom de famille est obligatoire.</div>
         }
@@ -49,9 +49,9 @@
     }
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Adresse email </label>
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="email"> Adresse email </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="email"
       name="email"
       [(ngModel)]="email"
@@ -62,7 +62,7 @@
       email
     />
     @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (emailInput.errors?.['required']) {
           <div>L'adresse email est obligatoire.</div>
         }
@@ -73,9 +73,9 @@
     }
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="phone"> Téléphone </label>
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="phone"> Téléphone </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="phone"
       name="phone"
       [(ngModel)]="phone"
@@ -86,7 +86,7 @@
       pattern="[0-9]{10}"
     />
     @if (phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (phoneInput.errors?.['required']) {
           <div>Le téléphone est obligatoire.</div>
         }
@@ -97,11 +97,11 @@
     }
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="dateOfBirth">
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="dateOfBirth">
       Date de naissance
     </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="dateOfBirth"
       name="dateOfBirth"
       [(ngModel)]="dateOfBirth"
@@ -110,7 +110,7 @@
       required
     />
     @if (dateOfBirthInput.invalid && (dateOfBirthInput.dirty || dateOfBirthInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (dateOfBirthInput.errors?.['required']) {
           <div>La date de naissance est obligatoire.</div>
         }
@@ -118,9 +118,9 @@
     }
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="address"> Adresse </label>
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="address"> Adresse </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="address"
       name="address"
       [(ngModel)]="address"
@@ -130,7 +130,7 @@
       required
     />
     @if (addressInput.invalid && (addressInput.dirty || addressInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (addressInput.errors?.['required']) {
           <div>L'adresse est obligatoire.</div>
         }
@@ -139,11 +139,11 @@
   </div>
   <div class="flex gap-4 mb-4">
     <div class="w-1/2">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="postalCode">
+      <label class="block text-gray-300 text-sm font-bold mb-2" for="postalCode">
         Code postal
       </label>
       <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
         id="postalCode"
         name="postalCode"
         [(ngModel)]="postalCode"
@@ -154,7 +154,7 @@
         pattern="[0-9]{5}"
       />
       @if (postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)) {
-        <div class="text-red-500 text-xs italic">
+        <div class="text-red-400 text-xs italic">
           @if (postalCodeInput.errors?.['required']) {
             <div>Le code postal est obligatoire.</div>
           }
@@ -165,9 +165,9 @@
       }
     </div>
     <div class="w-1/2">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="city"> Ville </label>
+      <label class="block text-gray-300 text-sm font-bold mb-2" for="city"> Ville </label>
       <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
         id="city"
         name="city"
         [(ngModel)]="city"
@@ -177,7 +177,7 @@
         required
       />
       @if (cityInput.invalid && (cityInput.dirty || cityInput.touched)) {
-        <div class="text-red-500 text-xs italic">
+        <div class="text-red-400 text-xs italic">
           @if (cityInput.errors?.['required']) {
             <div>La ville est obligatoire.</div>
           }
@@ -186,9 +186,9 @@
     </div>
   </div>
   <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="country"> Pays </label>
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="country"> Pays </label>
     <select
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
       id="country"
       name="country"
       [(ngModel)]="country"
@@ -200,7 +200,7 @@
       }
     </select>
     @if (countryInput.invalid && (countryInput.dirty || countryInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (countryInput.errors?.['required']) {
           <div>Le pays est obligatoire.</div>
         }
@@ -208,9 +208,9 @@
     }
   </div>
   <div class="mb-6">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Mot de passe </label>
+    <label class="block text-gray-300 text-sm font-bold mb-2" for="password"> Mot de passe </label>
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+      class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
       id="password"
       name="password"
       [(ngModel)]="password"
@@ -221,7 +221,7 @@
       minlength="8"
     />
     @if (passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)) {
-      <div class="text-red-500 text-xs italic">
+      <div class="text-red-400 text-xs italic">
         @if (passwordInput.errors?.['required']) {
           <div>Le mot de passe est obligatoire.</div>
         }
@@ -231,11 +231,11 @@
       </div>
     }
     <div class="mb-6">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmedpassword">
+      <label class="block text-gray-300 text-sm font-bold mb-2" for="confirmedpassword">
         Confirmer le mot de passe
       </label>
       <input
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+        class="shadow appearance-none border border-gray-600 rounded w-full py-2 px-3 text-white bg-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
         id="confirmedpassword"
         name="confirmedpassword"
         [(ngModel)]="confirmedpassword"
@@ -248,7 +248,7 @@
         confirmedPasswordInput.invalid &&
         (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
       ) {
-        <div class="text-red-500 text-xs italic">
+        <div class="text-red-400 text-xs italic">
           @if (confirmedPasswordInput.errors?.['required']) {
             <div>La confirmation du mot de passe est obligatoire.</div>
           }
@@ -259,14 +259,14 @@
         password !== confirmedpassword &&
         (confirmedPasswordInput.dirty || confirmedPasswordInput.touched)
       ) {
-        <div class="text-red-500 text-xs italic">Les mots de passe ne correspondent pas.</div>
+        <div class="text-red-400 text-xs italic">Les mots de passe ne correspondent pas.</div>
       }
     </div>
   </div>
 
   <div class="flex items-center justify-center">
     <button
-      class="bg-(--gamerz-black) hover:bg-(--gamerz-black-light) text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+      class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       type="submit"
       [disabled]="registerForm.invalid"
     >
