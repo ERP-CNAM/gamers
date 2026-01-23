@@ -93,4 +93,81 @@ export const ADS: Ad[] = [
   </div>
 `,
   },
+  {
+    id: 4,
+    link: 'https://votre-site.com/promotion-speciale',
+    html: `
+  <div class="relative flex h-32 md:h-40 w-full items-center justify-between overflow-hidden bg-gradient-to-r from-purple-700 via-pink-600 to-red-500 px-4 md:px-8">
+    
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <img src="/ad/test.gif" alt="Animation publicitaire" class="h-full w-full object-cover opacity-50 blur-sm scale-110" />
+    </div>
+
+    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between w-full text-white">
+      
+      <div class="text-center sm:text-left mb-3 sm:mb-0">
+        <h2 class="text-2xl md:text-3xl font-extrabold leading-tight tracking-tight">
+          <span class="bg-gradient-to-r from-yellow-300 to-yellow-500 text-transparent bg-clip-text">OFFRE FLASH GAMERZ!</span>
+        </h2>
+        <p class="text-sm md:text-base opacity-90 mt-1">Ne manquez pas nos promotions exclusives.</p>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <div class="relative text-lg md:text-xl font-bold p-2 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm shadow-md">
+          Code: <span class="text-yellow-300">FLASH25</span>
+        </div>
+        <button class="bg-yellow-400 text-purple-900 px-5 py-2 md:px-7 md:py-3 rounded-full font-extrabold text-sm md:text-base shadow-xl transform group-hover:scale-105 active:scale-95 transition-all">
+          Profiter !
+        </button>
+      </div>
+
+    </div>
+
+    <div class="absolute bottom-0 left-0 bg-white/20 text-white text-[9px] font-bold px-2 py-0.5 uppercase tracking-wider backdrop-blur-sm">
+      Pub animée
+    </div>
+  </div>
+`,
+  },
+  {
+    id: 5,
+    link: 'https://www.bozlak-kebab.fr/', // Remplace par le vrai lien
+    html: `
+  <div class="relative flex h-32 md:h-40 w-full items-center justify-between overflow-hidden bg-gradient-to-r from-[#1a1a1a] via-[#331a00] to-[#e67e22] px-4 md:px-12">
+    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+
+    <div class="relative z-10 flex flex-col text-white max-w-[50%]">
+      <div class="flex items-center gap-2 mb-1 md:mb-2">
+        <span class="bg-orange-500 text-[10px] font-black px-2 py-0.5 rounded uppercase">Authentique</span>
+        <span class="text-orange-200 text-[10px] md:text-xs font-mono">#BozlakStyle</span>
+      </div>
+      <h2 class="text-xl md:text-4xl font-black italic uppercase leading-none tracking-tighter shadow-black drop-shadow-lg">
+        Bozlak <span class="text-orange-500">Kebab</span>
+      </h2>
+      <p class="text-xs md:text-lg font-bold text-white/90 mt-1 md:mt-2 italic">
+        La découpe des maîtres, le goût de la tradition.
+      </p>
+    </div>
+
+    <div class="relative z-10 flex items-center h-full">
+      <div class="absolute bottom-0 right-28 md:right-48 h-[110%] w-48 md:w-64">
+        <img src="/ad/fatih.jpg" alt="Chef Bozlak" class="h-full w-full object-cover object-top mask-linear-gradient drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]" 
+             style="mask-image: linear-gradient(to right, transparent, black 20%); -webkit-mask-image: linear-gradient(to right, transparent, black 20%);" />
+      </div>
+      
+      <div class="flex flex-col items-center gap-2">
+        <div class="group relative inline-flex">
+          <div class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-yellow-500 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <button class="relative bg-white text-black px-4 py-2 md:px-6 md:py-3 rounded-lg font-black text-xs md:text-sm shadow-xl transition-all transform hover:scale-105 active:scale-95">
+            COMMANDER MAINTENANT
+          </button>
+        </div>
+        <span class="text-[9px] md:text-[10px] font-bold text-orange-200 uppercase tracking-widest hidden md:block">Ouvert 7j/7</span>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 right-0 w-1/2 h-1/4 bg-gradient-to-t from-orange-600/20 to-transparent pointer-events-none"></div>
+  </div>
+`,
+  },
 ];

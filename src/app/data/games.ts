@@ -251,4 +251,20 @@ export const GAMES: Game[] = [
     playlink: 'https://axelmunch.itch.io/nectar-defense',
     embedUrl: 'https://itch.io/embed-upload/16216731?color=cdbba8',
   },
+  {
+    id: 15,
+    name: 'Multiverse Crossy Road',
+    summary:
+      'Multiverse Crossy Road est un jeu de type Crossy ROAD avec des personnages de différents univers.',
+    first_release_date: 1704067200,
+    rating: 95.0,
+    cover: { url: 'multiverse.png' },
+    genres: [{ id: 15, name: 'Arcade' }],
+    platforms: [{ id: 6, name: 'PC (Windows)' }],
+    multiplayer: false,
+    developer: 'Robin B., Sebastien P., Alexandre O.',
+    mode: 'Solo',
+    playlink: 'https://cnam-gamerz.itch.io/multiverse-crossy-road',
+    embedUrl: 'https://itch.io/embed-upload/16223163?color=333333',
+  },
 ];
