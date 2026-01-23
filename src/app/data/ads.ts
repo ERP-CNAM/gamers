@@ -170,4 +170,95 @@ export const ADS: Ad[] = [
   </div>
 `,
   },
+  {
+    id: 6,
+    link: 'https://www.sacchetto-pizza.com/', // Remplace par le vrai lien
+    html: `
+  <div class="relative flex h-32 md:h-40 w-full items-center justify-between overflow-hidden bg-white px-4 md:px-12">
+    <div class="absolute inset-0 flex">
+      <div class="w-1/3 h-full bg-[#009246] opacity-90"></div>
+      <div class="w-1/3 h-full bg-white"></div>
+      <div class="w-1/3 h-full bg-[#ce2b37] opacity-90"></div>
+    </div>
+
+    <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]"></div>
+
+    <div class="relative z-10 flex flex-col max-w-[55%]">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="bg-[#ce2b37] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">La Vera Pizza</span>
+        <span class="text-[#009246] text-[10px] md:text-xs font-black italic tracking-widest">#ItaliaTradizione</span>
+      </div>
+      <h2 class="text-xl md:text-4xl font-serif font-black text-slate-900 leading-none">
+        SACCHETTO <br class="hidden md:block"> <span class="text-[#ce2b37]">de la Mama</span>
+      </h2>
+      <p class="text-xs md:text-lg font-medium text-slate-700 mt-1 md:mt-2 italic">
+        Les pizzas Italia de la mama ! 🇮🇹
+      </p>
+    </div>
+
+    <div class="relative z-10 flex items-center h-full">
+      <div class="absolute bottom-0 right-24 md:right-44 h-[95%] w-40 md:w-56 overflow-hidden">
+        <img src="/ad/vlad.png" alt="Chef Sacchetto" class="h-full w-full object-contain object-bottom drop-shadow-2xl transition-transform duration-500 group-hover:scale-105" 
+             style="mask-image: linear-gradient(to top, black 80%, transparent); -webkit-mask-image: linear-gradient(to top, black 80%, transparent);" />
+      </div>
+      
+      <div class="flex flex-col items-center gap-2">
+        <button class="group relative flex items-center justify-center px-6 py-2 md:px-8 md:py-3 font-black text-white bg-[#009246] rounded-full shadow-[0_4px_0_0_#006430] hover:shadow-[0_2px_0_0_#006430] hover:translate-y-[2px] transition-all">
+          DÉGUSTER
+        </button>
+        <div class="flex items-center gap-1">
+           <span class="text-[9px] md:text-[10px] font-bold text-slate-800 uppercase tracking-tighter bg-white/50 px-2 py-0.5 rounded">▶ Préparé avec amour</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#009246] via-white to-[#ce2b37]"></div>
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#009246] via-white to-[#ce2b37]"></div>
+  </div>
+`,
+  },
+  {
+    id: 7,
+    link: 'https://chargemap.com/about/jobs', // Lien vers la page recrutement
+    html: `
+<div class="relative flex h-32 md:h-40 w-full items-center justify-between overflow-hidden bg-[#00AEEF] px-4 md:px-12">
+    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')]"></div>
+    
+    <div class="relative z-10 flex items-center gap-4 md:gap-6">
+      <div class="flex h-16 w-16 md:h-20 md:w-20 shrink-0 items-center justify-center bg-white rounded-xl shadow-lg p-2">
+        <img src="/ad/chargemap.png" alt="Logo" class="object-contain" />
+      </div>
+      
+      <div class="flex flex-col">
+        <h1 class="text-3xl md:text-5xl font-black text-white leading-none tracking-tighter uppercase">
+          Charge<span class="text-yellow-300">Map</span>
+        </h1>
+        <div class="flex items-center gap-2 mt-1">
+          <span class="bg-white/20 text-white text-[10px] md:text-xs font-bold px-2 py-0.5 rounded backdrop-blur-sm">
+            RECRUTEMENT IT
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative z-10 flex flex-col items-end text-right">
+      <h2 class="text-white text-lg md:text-2xl font-bold leading-tight">
+        Rejoins la team <span class="underline decoration-yellow-300 decoration-2 underline-offset-4 text-yellow-300">Alternance</span>
+      </h2>
+      <p class="text-white/90 text-xs md:text-sm mb-3 font-medium italic">
+        Strasbourg ou Télétravail
+      </p>
+      
+      <div class="group relative inline-flex">
+        <div class="absolute -inset-1 bg-white rounded-lg blur opacity-20 group-hover:opacity-50 transition duration-300"></div>
+        <button class="relative bg-yellow-300 text-[#00AEEF] px-6 py-2 md:px-8 md:py-2.5 rounded-lg font-black text-xs md:text-sm shadow-xl transition-all transform hover:scale-105 active:scale-95">
+          POSTULER
+        </button>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 h-1.5 bg-yellow-300 animate-[pulse_1.5s_infinite]" style="width: 100%"></div>
+  </div>
+`,
+  },
 ];
