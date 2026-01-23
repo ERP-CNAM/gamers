@@ -7,7 +7,7 @@ export interface Ad {
 export const ADS: Ad[] = [
   {
     id: 1,
-    link: 'https://www.infobroadcaster.com',
+    link: 'https://infobroadcaster.netlify.app',
     html: `
       <div class="flex h-32 md:h-40 w-full items-center justify-between px-6 md:px-12 bg-gradient-to-r from-[#6324a0] via-[#9154cf] to-[#c9a7eb]">
         <div class="hidden sm:flex items-center gap-2 text-white/90">
@@ -95,7 +95,7 @@ export const ADS: Ad[] = [
   },
   {
     id: 4,
-    link: 'https://votre-site.com/promotion-speciale',
+    link: '/subscribe',
     html: `
   <div class="relative flex h-32 md:h-40 w-full items-center justify-between overflow-hidden bg-gradient-to-r from-purple-700 via-pink-600 to-red-500 px-4 md:px-8">
     

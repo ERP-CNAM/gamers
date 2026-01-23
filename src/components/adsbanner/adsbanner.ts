@@ -20,10 +20,7 @@ export class Adsbanner implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.updateAd();
-    this.intervalId = setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % ADS.length;
-      this.updateAd();
-    }, 5000);
+    this.startRotation();
   }
 
   ngOnDestroy() {
@@ -37,6 +34,30 @@ export class Adsbanner implements OnInit, OnDestroy {
       // Bypass la sécurité Angular pour afficher le HTML de la pub
       html: this.sanitizer.bypassSecurityTrustHtml(ad.html),
     });
+  }
+
+  startRotation() {
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % ADS.length;
+      this.updateAd();
+    }, 5000);
+  }
+
+  nextAd() {
+    this.currentIndex = (this.currentIndex + 1) % ADS.length;
+    this.updateAd();
+    this.resetRotation();
+  }
+
+  prevAd() {
+    this.currentIndex = (this.currentIndex - 1 + ADS.length) % ADS.length;
+    this.updateAd();
+    this.resetRotation();
+  }
+
+  resetRotation() {
+    if (this.intervalId) clearInterval(this.intervalId);
+    this.startRotation();
   }
 
   close() {
