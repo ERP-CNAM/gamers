@@ -267,4 +267,20 @@ export const GAMES: Game[] = [
     playlink: 'https://cnam-gamerz.itch.io/multiverse-crossy-road',
     embedUrl: 'https://itch.io/embed-upload/16223163?color=333333',
   },
+  {
+    id: 16,
+    name: 'MineCnam',
+    summary:
+      'MineCnam est un jeu de type Tower Defense inspiré du célèbre jeu MineCraft des éléments du jeu',
+    first_release_date: 1704067200,
+    rating: 95.0,
+    cover: { url: 'minecnam.png' },
+    genres: [{ id: 15, name: 'Arcade' }],
+    platforms: [{ id: 6, name: 'PC (Windows)' }],
+    multiplayer: false,
+    developer: 'Léo H, Tanguy P., Ian B.',
+    mode: 'Solo',
+    playlink: 'https://cnam-gamerz.itch.io/minecnam',
+    embedUrl: 'https://itch.io/embed-upload/16224958?color=333333',
+  },
 ];
