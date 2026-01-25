@@ -1,22 +1,22 @@
 import { Injectable } from "@angular/core";
-import { SubscriptionListElement } from "../models/subscription-list.model";
-import { environment } from "../../environments/environment";
-import { SUBSCRIPTION_HISTORY } from "../data/subscriptions";
+import { Observable, of, delay } from 'rxjs';
+import { environment } from "../environments/environment";
+import { SUBSCRIPTION_HISTORY } from "../app/data/subscriptions";
+import { SubscriptionService } from "./subscription.service";
+import { Subscription } from "../models/SubscriptionResponse";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class SubscriptionService {
-    getSubscriptionHistory(): SubscriptionListElement[] | undefined {
+@Injectable()
+export class SubscriptionMockService extends SubscriptionService {
+    getSubscriptionHistory(userId: string): Observable<Subscription[]> {
 
-        if (environment.useIGDBApi == false) {
-            return SUBSCRIPTION_HISTORY
-        }
+        const data = !environment.useIGDBApi ? SUBSCRIPTION_HISTORY : [];
 
-        return undefined
+        return of(data).pipe (
+            delay(500)
+        )
     }
 
-    getCurrentSubscription(history: SubscriptionListElement[]): SubscriptionListElement {
+    getCurrentSubscription(history: Subscription[]): Subscription {
         if (!history || history.length === 0) {
             throw new Error('No subscription history available');
         }

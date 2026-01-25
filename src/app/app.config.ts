@@ -8,6 +8,9 @@ import { environment } from '../environments/environment';
 import { AuthMockService } from '../services/auth-mock.service';
 import { AuthApiService } from '../services/auth-api.service';
 import { provideHttpClient } from '@angular/common/http';
+import { SubscriptionService } from '../services/subscription.service';
+import { SubscriptionMockService } from '../services/subscription-mock.service';
+import { SubscriptionApiService } from '../services/subscription-api.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +21,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: AuthService,
       useClass: environment.useMock ? AuthMockService : AuthApiService,
+    },
+    {
+      provide: SubscriptionService,
+      useClass: environment.useMock ? SubscriptionMockService : SubscriptionApiService
     },
   ],
 };

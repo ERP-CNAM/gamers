@@ -1,6 +1,6 @@
-import { SubscriptionListElement } from "../models/subscription-list.model";
+import { Subscription } from '../../models/SubscriptionResponse'
 
-export const SUBSCRIPTION_HISTORY: SubscriptionListElement[] = [
+export const SUBSCRIPTION_HISTORY: Subscription[] = [
     {
         id: "Sub01",
         userId: "User01",

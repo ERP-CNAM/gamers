@@ -9,6 +9,6 @@ import { Component, Input } from '@angular/core';
 export class Card {
 
   @Input() title: string = "Title";
-  @Input() info?: string | Number;
+  @Input() info?: string | Number | undefined | null;
 
 }

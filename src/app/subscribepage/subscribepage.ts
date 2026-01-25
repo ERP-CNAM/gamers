@@ -1,42 +1,58 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Card } from '../../components/card/card';
-import { environment } from '../../environments/environment';
-import { SubscriptionListElement } from '../models/subscription-list.model';
-import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
-import { SubscriptionService } from '../services/subscription.service';
 import { AuthService } from '../../services/auth.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Adsbanner } from '../../components/adsbanner/adsbanner';
+import { SubscriptionService } from '../../services/subscription.service';
+import { Subscription } from '../../models/SubscriptionResponse'
 
 @Component({
   selector: 'app-subscribepage',
-  imports: [Card, Adsbanner],
+  standalone: true,
+  imports: [Card, Adsbanner, ReactiveFormsModule],
   templateUrl: './subscribepage.html',
   styleUrl: './subscribepage.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Subscribepage {
   private subscriptionService = inject(SubscriptionService);
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
-  subscriptionHistory: SubscriptionListElement[] =
-    this.subscriptionService.getSubscriptionHistory() ?? [];
-  currentSubscription: SubscriptionListElement = this.subscriptionService.getCurrentSubscription(
-    this.subscriptionHistory,
+
+  readonly userIdStr = computed(() => `${this.authService.userId() ?? ''}`);
+
+  readonly subscriptionHistory = toSignal(
+    this.subscriptionService.getSubscriptionHistory(this.userIdStr())
   );
-  remainingBalance = this.authService.remainingBalance;
 
-  isFormOpen = signal(false);
-  isSubmitting = signal(false);
+  readonly currentSubscription = computed(() => {
+    const history = this.subscriptionHistory();
 
-  subscriptionForm = this.fb.nonNullable.group({
-    userId: ['', [Validators.required]],
+    if (!history || history.length === 0) {
+      return null
+    }
+
+    return history.length > 0 
+      ? this.subscriptionService.getCurrentSubscription(history) 
+      : null;
+  });
+
+  readonly remainingBalance = this.authService.remainingBalance;
+  readonly isFormOpen = signal(false);
+  readonly isSubmitting = signal(false);
+
+  // Form setup
+  readonly subscriptionForm = this.fb.nonNullable.group({
+    userId: [this.userIdStr(), [Validators.required]],
     contractCode: ['', [Validators.required]],
-    startDate: ['', [Validators.required]],
+    startDate: [new Date().toISOString().split('T')[0], [Validators.required]],
     monthlyAmount: [0, [Validators.required, Validators.min(0)]],
     promoCode: [''],
   });
 
   openForm() {
+    this.subscriptionForm.patchValue({ userId: this.userIdStr() });
     this.isFormOpen.set(true);
   }
 
@@ -52,23 +68,12 @@ export class Subscribepage {
     }
 
     this.isSubmitting.set(true);
-
     try {
-      const formValue = this.subscriptionForm.getRawValue();
-      const payload = {
-        userId: formValue.userId,
-        contractCode: formValue.contractCode,
-        startDate: formValue.startDate,
-        monthlyAmount: formValue.monthlyAmount,
-        promoCode: formValue.promoCode || null,
-      };
-
-      //await this.subscriptionService.createSubscription(payload);
+      const payload = this.subscriptionForm.getRawValue();
+      // await this.subscriptionService.createSubscription(payload);
       this.closeForm();
-      // TODO: Refresh subscription data or show success message
     } catch (error) {
       console.error('Error creating subscription:', error);
-      // TODO: Show error message to user
     } finally {
       this.isSubmitting.set(false);
     }

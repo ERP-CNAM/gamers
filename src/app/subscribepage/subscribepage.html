@@ -16,16 +16,16 @@
   <div class="max-w-6xl mx-auto py-4">
     <app-card title="Abonnement">
       <div class="flex gap-4">
-        <app-card title="Status" [info]="currentSubscription.status"></app-card>
-        <app-card title="Contrat" [info]="currentSubscription.contractCode"></app-card>
-        <app-card title="Code promotionnel" [info]="currentSubscription.promoCode"></app-card>
+        <app-card title="Status" [info]="currentSubscription()?.status"></app-card>
+        <app-card title="Contrat" [info]="currentSubscription()?.contractCode"></app-card>
+        <app-card title="Code promotionnel" [info]="currentSubscription()?.promoCode"></app-card>
       </div>
     </app-card>
   </div>
   <div class="max-w-6xl mx-auto py-4">
     <app-card title="Historique d'abonnement">
       <div class="flex flex-col gap-6">
-        @for (subscription of subscriptionHistory; track subscription.id) {
+        @for (subscription of subscriptionHistory(); track subscription.id) {
           <div class="flex gap-4">
             <app-card title="Formule" [info]="subscription.contractCode"></app-card>
             <app-card title="Date de départ" [info]="subscription.startDate"></app-card>

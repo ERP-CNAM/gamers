@@ -6,7 +6,8 @@
             "balance": 50,
             "status": "OK",
             "firstName": "Admin",
-            "lastName": "User"
+            "lastName": "User",
+            "id": 1
         },
         {
             "email": "user",
@@ -14,7 +15,8 @@
             "balance": 0,
             "status": "BLOCKED",
             "firstName": "Regular",
-            "lastName": "User"
+            "lastName": "User",
+            "id": 2
         }
     ]
 }
