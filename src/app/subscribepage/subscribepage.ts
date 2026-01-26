@@ -6,6 +6,7 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Adsbanner } from '../../components/adsbanner/adsbanner';
 import { SubscriptionService } from '../../services/subscription.service';
 import { Subscription } from '../../models/SubscriptionResponse'
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-subscribepage',
@@ -17,7 +18,7 @@ import { Subscription } from '../../models/SubscriptionResponse'
 })
 export class Subscribepage {
   private subscriptionService = inject(SubscriptionService);
-  private authService = inject(AuthService);
+  authService = inject(AuthService);
   private fb = inject(FormBuilder);
 
   readonly userIdStr = computed(() => `${this.authService.userId() ?? ''}`);
@@ -42,12 +43,17 @@ export class Subscribepage {
   readonly isFormOpen = signal(false);
   readonly isSubmitting = signal(false);
 
+  readonly canSubscribe = computed(() => {
+    const current = this.currentSubscription();
+    return !current || current.status === 'CANCELLED';
+  });
+
   // Form setup
   readonly subscriptionForm = this.fb.nonNullable.group({
-    userId: [this.userIdStr(), [Validators.required]],
-    contractCode: ['', [Validators.required]],
-    startDate: [new Date().toISOString().split('T')[0], [Validators.required]],
-    monthlyAmount: [0, [Validators.required, Validators.min(0)]],
+    userId: [this.userIdStr()], 
+    contractCode: ['C003'],
+    startDate: [new Date().toISOString().split('T')[0]], 
+    monthlyAmount: [15.00], 
     promoCode: [''],
   });
 
@@ -62,18 +68,40 @@ export class Subscribepage {
   }
 
   async onSubmit() {
-    if (this.subscriptionForm.invalid) {
-      this.subscriptionForm.markAllAsTouched();
-      return;
-    }
+    if (!this.canSubscribe()) return;
 
     this.isSubmitting.set(true);
     try {
-      const payload = this.subscriptionForm.getRawValue();
-      // await this.subscriptionService.createSubscription(payload);
-      this.closeForm();
+      const val = this.subscriptionForm.getRawValue();
+      const success = await firstValueFrom(this.subscriptionService.createSubscription(val));
+      
+      if (success) {
+        this.closeForm();
+      } else {
+        alert("Erreur lors de la création de l'abonnement.");
+      }
     } catch (error) {
-      console.error('Error creating subscription:', error);
+      console.error('Error:', error);
+    } finally {
+      this.isSubmitting.set(false);
+    }
+  }
+
+  async onCancelSubscription() {
+    const current = this.currentSubscription();
+    if (!current?.id) return;
+
+    const confirmed = window.confirm('Êtes-vous sûr de vouloir résilier votre abonnement ?');
+    if (!confirmed) return;
+
+    this.isSubmitting.set(true);
+    try {
+      const success = await firstValueFrom(this.subscriptionService.cancelSubscription(current.id));
+      if (!success) {
+        alert('La résiliation a échoué. Veuillez contacter le support.');
+      }
+    } catch (error) {
+      console.error('Cancel Error:', error);
     } finally {
       this.isSubmitting.set(false);
     }

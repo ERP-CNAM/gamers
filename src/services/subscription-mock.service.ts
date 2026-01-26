@@ -33,5 +33,13 @@ export class SubscriptionMockService extends SubscriptionService {
         const [day, month, year] = dateString.split('/').map(Number);
         return new Date(year, month - 1, day);
     }
+
+    createSubscription(payload: { userId: string; contractCode: string; startDate: string; monthlyAmount: number }): Observable<boolean> {
+        throw new Error('Method not implemented');
+    }
+
+    cancelSubscription(subscriptionId: string): Observable<boolean> {
+        throw new Error('Method not implemented');
+    }
 }
 
