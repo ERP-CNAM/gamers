@@ -29,4 +29,5 @@ export abstract class AuthService {
     dateOfBirth: string,
   ): Observable<boolean>;
   abstract toggleSubscription(): void;
+  abstract setUserStatus(status: UserStatus): void;
 }

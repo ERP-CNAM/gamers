@@ -130,4 +130,8 @@ export class AuthMockService extends AuthService {
   }
 
   toggleSubscription() {}
+
+  setUserStatus(status: UserStatus): void {
+    this.status.set(status);
+  }
 }

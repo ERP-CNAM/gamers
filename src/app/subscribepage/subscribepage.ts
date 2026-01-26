@@ -1,12 +1,12 @@
 import { Component, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Card } from '../../components/card/card';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Adsbanner } from '../../components/adsbanner/adsbanner';
 import { SubscriptionService } from '../../services/subscription.service';
-import { Subscription } from '../../models/SubscriptionResponse'
-import { firstValueFrom } from 'rxjs';
+import { Subscription } from '../../models/SubscriptionResponse';
+import { firstValueFrom, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-subscribepage',
@@ -20,23 +20,25 @@ export class Subscribepage {
   private subscriptionService = inject(SubscriptionService);
   authService = inject(AuthService);
   private fb = inject(FormBuilder);
+  private refreshTrigger = signal(0);
 
   readonly userIdStr = computed(() => `${this.authService.userId() ?? ''}`);
 
   readonly subscriptionHistory = toSignal(
-    this.subscriptionService.getSubscriptionHistory(this.userIdStr())
+    toObservable(this.refreshTrigger).pipe(
+      switchMap(() => this.subscriptionService.getSubscriptionHistory(this.userIdStr())),
+    ),
+    { initialValue: [] },
   );
 
   readonly currentSubscription = computed(() => {
     const history = this.subscriptionHistory();
 
     if (!history || history.length === 0) {
-      return null
+      return null;
     }
 
-    return history.length > 0 
-      ? this.subscriptionService.getCurrentSubscription(history) 
-      : null;
+    return history.length > 0 ? this.subscriptionService.getCurrentSubscription(history) : null;
   });
 
   readonly remainingBalance = this.authService.remainingBalance;
@@ -49,10 +51,10 @@ export class Subscribepage {
   });
 
   readonly subscriptionForm = this.fb.nonNullable.group({
-    userId: [this.userIdStr()], 
+    userId: [this.userIdStr()],
     contractCode: ['C003'],
-    startDate: [new Date().toISOString().split('T')[0]], 
-    monthlyAmount: [15.00], 
+    startDate: [new Date().toISOString().split('T')[0]],
+    monthlyAmount: [15.0],
     promoCode: [''],
   });
 
@@ -73,8 +75,10 @@ export class Subscribepage {
     try {
       const val = this.subscriptionForm.getRawValue();
       const success = await firstValueFrom(this.subscriptionService.createSubscription(val));
-      
+
       if (success) {
+        this.authService.setUserStatus('OK');
+        this.refreshTrigger.update((v) => v + 1);
         this.closeForm();
       } else {
         alert("Erreur lors de la création de l'abonnement.");
@@ -98,7 +102,10 @@ export class Subscribepage {
       const success = await firstValueFrom(this.subscriptionService.cancelSubscription(current.id));
       if (!success) {
         alert('La résiliation a échoué. Veuillez contacter le support.');
+        return;
       }
+      this.authService.setUserStatus('BLOCKED');
+      this.refreshTrigger.update((v) => v + 1);
     } catch (error) {
       console.error('Cancel Error:', error);
     } finally {

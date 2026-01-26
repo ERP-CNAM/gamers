@@ -147,4 +147,8 @@ export class AuthApiService extends AuthService {
   }
 
   toggleSubscription() {}
+
+  setUserStatus(status: UserStatus): void {
+    this.status.set(status);
+  }
 }

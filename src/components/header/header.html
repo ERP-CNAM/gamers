@@ -34,7 +34,7 @@
     </div>
 
     <div class="hidden lg:flex lg:gap-x-12">
-      @for (link of filteredLinks; track link.label) {
+      @for (link of filteredLinks(); track link.label) {
         <a
           routerLink="{{ link.href }}"
           class="text-sm/6 font-semibold text-white link-underline link-underline-black"
@@ -158,7 +158,7 @@
         <div class="mt-6 flow-root">
           <div class="-my-6 divide-y divide-white/10">
             <div class="py-6">
-              @for (item of filteredLinks; track item.label) {
+              @for (item of filteredLinks(); track item.label) {
                 <a
                   routerLink="{{ item.href }}"
                   (click)="toggleMobileMenu()"

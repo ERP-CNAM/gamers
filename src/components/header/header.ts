@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, computed } from '@angular/core';
 // import { AuthService } from '../../services/AuthService';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -25,14 +25,14 @@ export class Header {
     { label: "S'abonner", href: '/subscribe', showIfSubscribed: false },
   ];
 
-  get filteredLinks() {
+  filteredLinks = computed(() => {
     return this.navLinks.filter((link) => {
       if (link.showIfSubscribed === true && !this.authService.isSubscribed()) return false;
       if (link.showIfSubscribed === false && this.authService.isSubscribed()) return false;
 
       return true;
     });
-  }
+  });
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
