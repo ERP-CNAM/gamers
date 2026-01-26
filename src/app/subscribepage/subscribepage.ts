@@ -48,7 +48,6 @@ export class Subscribepage {
     return !current || current.status === 'CANCELLED';
   });
 
-  // Form setup
   readonly subscriptionForm = this.fb.nonNullable.group({
     userId: [this.userIdStr()], 
     contractCode: ['C003'],

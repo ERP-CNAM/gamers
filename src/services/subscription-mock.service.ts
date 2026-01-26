@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { Observable, of, delay } from 'rxjs';
 import { environment } from "../environments/environment";
 import { SUBSCRIPTION_HISTORY } from "../app/data/subscriptions";
@@ -7,39 +7,50 @@ import { Subscription } from "../models/SubscriptionResponse";
 
 @Injectable()
 export class SubscriptionMockService extends SubscriptionService {
+    private _mockDb: Subscription[] = [...SUBSCRIPTION_HISTORY];
+
+    readonly history = signal<Subscription[]>(this._mockDb);
+
     getSubscriptionHistory(userId: string): Observable<Subscription[]> {
-
-        const data = !environment.useIGDBApi ? SUBSCRIPTION_HISTORY : [];
-
-        return of(data).pipe (
-            delay(500)
-        )
+        return of(this.history()).pipe(delay(500)); 
     }
 
-    getCurrentSubscription(history: Subscription[]): Subscription {
-        if (!history || history.length === 0) {
-            throw new Error('No subscription history available');
-        }
+    createSubscription(payload: { 
+        userId: string; 
+        contractCode: string; 
+        startDate: string; 
+        monthlyAmount: number 
+    }): Observable<boolean> {
 
-        return history.reduce((current, subscription) => {
-            const currentDate = this.parseDate(current.startDate);
-            const subscriptionDate = this.parseDate(subscription.startDate);
-            
-            return subscriptionDate > currentDate ? subscription : current;
-        });
-    } 
+        const newSub: Subscription = {
+            id: Math.random().toString(36).substring(2, 9),
+            ...payload,
+            status: 'ACTIVE',
+            promoCode: (payload as any).promoCode || null,
+            endDate: null
+        };
 
-    private parseDate(dateString: string): Date {
-        const [day, month, year] = dateString.split('/').map(Number);
-        return new Date(year, month - 1, day);
-    }
+        this._mockDb = [newSub, ...this._mockDb];
+        this.history.set(this._mockDb);
 
-    createSubscription(payload: { userId: string; contractCode: string; startDate: string; monthlyAmount: number }): Observable<boolean> {
-        throw new Error('Method not implemented');
+        return of(true).pipe(delay(800));
     }
 
     cancelSubscription(subscriptionId: string): Observable<boolean> {
-        throw new Error('Method not implemented');
+        this._mockDb = this._mockDb.map(sub => 
+            sub.id === subscriptionId 
+            ? { ...sub, status: 'CANCELLED', endDate: new Date().toISOString().split('T')[0] } 
+            : sub
+        );
+
+        this.history.set(this._mockDb);
+
+        return of(true).pipe(delay(600));
+    }
+
+    override getCurrentSubscription(history: Subscription[]): Subscription | null {
+        if (!history || history.length === 0) return null;
+        return history.find(sub => sub.status === 'ACTIVE') ?? null;
     }
 }
 

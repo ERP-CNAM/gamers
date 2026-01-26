@@ -67,17 +67,15 @@ export class SubscriptionApiService extends SubscriptionService {
       serviceName: 'back',
       path: '/subscriptions',
       debug: false,
-      payload: payload // contains userId, contractCode, startDate, monthlyAmount
+      payload: payload 
     };
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-      // Note: No Method-Override here because this is a real POST action
     });
 
     return this.http.post<BaseAPIResponse<any>>(environment.apiUrl, body, { headers }).pipe(
       map(res => res.success),
-      // After creating, we refresh the history to update the UI signals automatically
       tap(success => {
         if (success) this.getSubscriptionHistory(payload.userId).subscribe();
       }),
@@ -92,21 +90,20 @@ export class SubscriptionApiService extends SubscriptionService {
       clientName: environment.clientName,
       clientVersion: environment.clientVersion,
       serviceName: 'back',
-      path: `/subscriptions/${subscriptionId}`, // Resource targeted for deletion
+      path: `/subscriptions/${subscriptionId}`,
       debug: false,
-      payload: {} // The backend usually handles the status change internally
+      payload: {} 
     };
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
-      'X-HTTP-Method-Override': 'DELETE', // Tell the backend logic this is a DELETE
+      'X-HTTP-Method-Override': 'DELETE',
     });
 
     return this.http.post<BaseAPIResponse<any>>(environment.apiUrl, body, { headers }).pipe(
       map(res => res.success),
       tap(success => {
         if (success) {
-          // Refresh history so the 'currentSubscription' signal updates to null or CANCELLED
           const uid = this.auth.userId();
           if (uid) this.getSubscriptionHistory(String(uid)).subscribe();
         }
@@ -118,15 +115,12 @@ export class SubscriptionApiService extends SubscriptionService {
     );
   }
 
-  private getCurrentSubscriptionLogic(history: Subscription[]): Subscription {
-    return history.reduce((latest, current) => {
-      return new Date(current.startDate).getTime() > new Date(latest.startDate).getTime() 
-        ? current 
-        : latest;
-    });
+  private getCurrentSubscriptionLogic(history: Subscription[]): Subscription | null {
+    return history.find(sub => sub.status === 'ACTIVE') ?? null;
   }
 
-  override getCurrentSubscription(history: Subscription[]): Subscription {
+
+  override getCurrentSubscription(history: Subscription[]): Subscription | null {
     return this.getCurrentSubscriptionLogic(history);
   }
 }
