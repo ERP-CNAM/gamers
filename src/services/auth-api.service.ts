@@ -20,6 +20,12 @@ export class AuthApiService extends AuthService {
   userId = signal<number | null>(null);
   router = inject(Router);
   private ngZone = inject(NgZone);
+  phone = signal<string | null>(null);
+  address = signal<string | null>(null);
+  city = signal<string | null>(null);
+  postalCode = signal<string | null>(null);
+  country = signal<string | null>(null);
+  dateOfBirth = signal<string | null>(null);
 
   constructor() {
     super();
@@ -125,6 +131,12 @@ export class AuthApiService extends AuthService {
       this.lastName.set(user.lastName);
       this.userId.set(user.id);
       this.isSubscribed.set(user.isSubscribed);
+      this.phone.set(user.phone || null);
+      this.address.set(user.address || null);
+      this.city.set(user.city || null);
+      this.postalCode.set(user.postalCode || null);
+      this.country.set(user.country || null);
+      this.dateOfBirth.set(user.dateOfBirth || null);
 
       if (save) {
         localStorage.setItem('gamerz_session', JSON.stringify(user));
@@ -143,6 +155,12 @@ export class AuthApiService extends AuthService {
     this.lastName.set(null);
     this.userId.set(null);
     this.isSubscribed.set(false);
+    this.phone.set(null);
+    this.address.set(null);
+    this.city.set(null);
+    this.postalCode.set(null);
+    this.country.set(null);
+    this.dateOfBirth.set(null);
     this.ngZone.run(() => {
       this.router.navigate(['/']);
     });

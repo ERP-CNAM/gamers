@@ -13,6 +13,12 @@ export abstract class AuthService {
   abstract lastName: WritableSignal<string | null>;
   abstract token: WritableSignal<string | null>;
   abstract userId: WritableSignal<number | null>;
+  abstract phone: Signal<string | null>;
+  abstract address: Signal<string | null>;
+  abstract city: Signal<string | null>;
+  abstract postalCode: Signal<string | null>;
+  abstract country: Signal<string | null>;
+  abstract dateOfBirth: Signal<string | null>;
 
   abstract login(email: string, password: string): Observable<boolean>;
   abstract logout(): void;

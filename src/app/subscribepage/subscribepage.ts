@@ -56,6 +56,10 @@ export class Subscribepage {
     startDate: [new Date().toISOString().split('T')[0]],
     monthlyAmount: [15.0],
     promoCode: [''],
+    cardNumber: [''],
+    cardHolder: [''],
+    expiryDate: [''],
+    cvv: [''],
   });
 
   openForm() {
@@ -74,14 +78,28 @@ export class Subscribepage {
     this.isSubmitting.set(true);
     try {
       const val = this.subscriptionForm.getRawValue();
-      const success = await firstValueFrom(this.subscriptionService.createSubscription(val));
 
-      if (success) {
-        this.authService.toggleSubscription();
-        this.refreshTrigger.update((v) => v + 1);
-        this.closeForm();
+      // Mise à jour des informations de paiement
+      const paymentDetails = {
+        iban: val.cardHolder,
+      };
+
+      const paymentSuccess = await firstValueFrom(
+        this.subscriptionService.updatePaymentMethod(val.userId!, paymentDetails),
+      );
+
+      if (paymentSuccess) {
+        const success = await firstValueFrom(this.subscriptionService.createSubscription(val));
+
+        if (success) {
+          this.authService.toggleSubscription();
+          this.refreshTrigger.update((v) => v + 1);
+          this.closeForm();
+        } else {
+          alert("Erreur lors de la création de l'abonnement.");
+        }
       } else {
-        alert("Erreur lors de la création de l'abonnement.");
+        alert('Erreur lors de la mise à jour des informations de paiement.');
       }
     } catch (error) {
       console.error('Error:', error);

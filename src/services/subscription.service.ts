@@ -1,9 +1,15 @@
-import { Subscription } from "../models/SubscriptionResponse";
+import { Subscription } from '../models/SubscriptionResponse';
 import { Observable } from 'rxjs';
 
 export abstract class SubscriptionService {
-    abstract getSubscriptionHistory(userId: string):  Observable<Subscription[]>;
-    abstract getCurrentSubscription(history: Subscription[]): Subscription | null;
-    abstract createSubscription(payload: { userId: string; contractCode: string; startDate: string; monthlyAmount: number }): Observable<boolean>;
-    abstract cancelSubscription(subscriptionId: string): Observable<boolean>;
+  abstract getSubscriptionHistory(userId: string): Observable<Subscription[]>;
+  abstract getCurrentSubscription(history: Subscription[]): Subscription | null;
+  abstract createSubscription(payload: {
+    userId: string;
+    contractCode: string;
+    startDate: string;
+    monthlyAmount: number;
+  }): Observable<boolean>;
+  abstract cancelSubscription(subscriptionId: string): Observable<boolean>;
+  abstract updatePaymentMethod(userId: string, paymentDetails: any): Observable<boolean>;
 }
