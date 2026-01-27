@@ -13,7 +13,8 @@
             "city": "Paris",
             "postalCode": "75001",
             "country": "France",
-            "dateOfBirth": "1980-01-01"
+            "dateOfBirth": "1980-01-01",
+            "isSubscribed": true
         },
         {
             "email": "user",
@@ -28,7 +29,8 @@
             "city": "Lyon",
             "postalCode": "69002",
             "country": "France",
-            "dateOfBirth": "1995-05-15"
+            "dateOfBirth": "1995-05-15",
+            "isSubscribed": false
         }
     ]
 }
