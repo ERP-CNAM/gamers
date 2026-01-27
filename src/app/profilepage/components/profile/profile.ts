@@ -1,7 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ProfileApiService } from '../../services/profile-api.service';
-import { ProfileVm } from '../../models/profile.vm';
 import { AuthService } from '../../../../services/auth.service';
 import { Adsbanner } from '../../../../components/adsbanner/adsbanner';
 

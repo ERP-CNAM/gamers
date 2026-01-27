@@ -109,7 +109,11 @@
         (click)="closeUserMenu()"
         role="menuitem"
       >
-        S'abonner
+        @if (!authService.isSubscribed()) {
+          S'abonner
+        } @else {
+          Mon abonnement
+        }
       </a>
 
       <button
@@ -198,7 +202,11 @@
                   (click)="toggleMobileMenu()"
                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                 >
-                  S'abonner
+                  @if (!authService.isSubscribed()) {
+                    S'abonner
+                  } @else {
+                    Mon abonnement
+                  }
                 </a>
                 <button
                   (click)="authService.logout(); toggleMobileMenu()"
