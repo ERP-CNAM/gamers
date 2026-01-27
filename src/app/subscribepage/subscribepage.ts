@@ -77,7 +77,7 @@ export class Subscribepage {
       const success = await firstValueFrom(this.subscriptionService.createSubscription(val));
 
       if (success) {
-        this.authService.setUserStatus('OK');
+        this.authService.toggleSubscription();
         this.refreshTrigger.update((v) => v + 1);
         this.closeForm();
       } else {
@@ -104,7 +104,7 @@ export class Subscribepage {
         alert('La résiliation a échoué. Veuillez contacter le support.');
         return;
       }
-      this.authService.setUserStatus('BLOCKED');
+      this.authService.toggleSubscription();
       this.refreshTrigger.update((v) => v + 1);
     } catch (error) {
       console.error('Cancel Error:', error);

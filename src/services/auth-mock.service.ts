@@ -11,7 +11,7 @@ export class AuthMockService extends AuthService {
   isLoggedIn = signal(false);
   email = signal<string | null>(null);
   status = signal<UserStatus>('BLOCKED');
-  isSubscribed = computed(() => this.status() === 'OK');
+  isSubscribed = signal<boolean>(false);
   remainingBalance = signal<Number>(0);
   token = signal<string | null>(null);
   firstName = signal<string | null>(null);
@@ -44,6 +44,7 @@ export class AuthMockService extends AuthService {
     this.firstName.set(user.firstName);
     this.lastName.set(user.lastName);
     this.userId.set(user.id);
+    this.isSubscribed.set(user.isSubscribed);
 
     if (save) {
       localStorage.setItem('gamerz_session', JSON.stringify(user));
@@ -88,6 +89,7 @@ export class AuthMockService extends AuthService {
     this.lastName.set(null);
     this.userId.set(null);
     this.router.navigate(['/']);
+    this.isSubscribed.set(false);
   }
 
   register(
@@ -129,7 +131,10 @@ export class AuthMockService extends AuthService {
     );
   }
 
-  toggleSubscription() {}
+  toggleSubscription() {
+    const current = this.isSubscribed();
+    this.isSubscribed.set(!current);
+  }
 
   setUserStatus(status: UserStatus): void {
     this.status.set(status);

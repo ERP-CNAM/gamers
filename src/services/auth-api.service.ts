@@ -12,7 +12,7 @@ export class AuthApiService extends AuthService {
   isLoggedIn = signal(false);
   email = signal<string | null>(null);
   status = signal<UserStatus>('BLOCKED');
-  isSubscribed = computed(() => this.status() === 'OK');
+  isSubscribed = signal<boolean>(false);
   remainingBalance = signal<number>(0);
   token = signal<string | null>(null);
   firstName = signal<string | null>(null);
@@ -124,6 +124,7 @@ export class AuthApiService extends AuthService {
       this.firstName.set(user.firstName);
       this.lastName.set(user.lastName);
       this.userId.set(user.id);
+      this.isSubscribed.set(user.isSubscribed);
 
       if (save) {
         localStorage.setItem('gamerz_session', JSON.stringify(user));
@@ -141,12 +142,16 @@ export class AuthApiService extends AuthService {
     this.firstName.set(null);
     this.lastName.set(null);
     this.userId.set(null);
+    this.isSubscribed.set(false);
     this.ngZone.run(() => {
       this.router.navigate(['/']);
     });
   }
 
-  toggleSubscription() {}
+  toggleSubscription() {
+    const current = this.isSubscribed();
+    this.isSubscribed.set(!current);
+  }
 
   setUserStatus(status: UserStatus): void {
     this.status.set(status);

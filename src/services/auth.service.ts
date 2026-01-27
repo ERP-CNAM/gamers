@@ -7,7 +7,7 @@ export abstract class AuthService {
   abstract isLoggedIn: WritableSignal<boolean>;
   abstract email: WritableSignal<string | null>;
   abstract status: WritableSignal<UserStatus>;
-  abstract isSubscribed: Signal<boolean>;
+  abstract isSubscribed: WritableSignal<boolean>;
   abstract remainingBalance: WritableSignal<Number>;
   abstract firstName: WritableSignal<string | null>;
   abstract lastName: WritableSignal<string | null>;
