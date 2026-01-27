@@ -45,6 +45,7 @@ export class Subscribepage {
   readonly remainingBalance = this.authService.remainingBalance;
   readonly isFormOpen = signal(false);
   readonly isSubmitting = signal(false);
+  readonly promoError = signal<string | null>(null);
 
   readonly canSubscribe = computed(() => {
     const current = this.currentSubscription();
@@ -67,7 +68,16 @@ export class Subscribepage {
     this.subscriptionForm.controls.promoCode.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe((code) => {
-        const amount = code === 'B1M20' ? 7.5 : 15.0;
+        const isValid = code === 'B1M20';
+        const isEmpty = !code;
+
+        if (!isEmpty && !isValid) {
+          this.promoError.set('Code promo non valide');
+        } else {
+          this.promoError.set(null);
+        }
+
+        const amount = isValid ? 7.5 : 15.0;
         this.subscriptionForm.controls.monthlyAmount.setValue(amount);
       });
   }

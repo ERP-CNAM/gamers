@@ -114,7 +114,7 @@ export const ADS: Ad[] = [
       
       <div class="flex items-center gap-4">
         <div class="relative text-lg md:text-xl font-bold p-2 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm shadow-md">
-          Code: <span class="text-yellow-300">FLASH25</span>
+          Code: <span class="text-yellow-300">B1M20</span>
         </div>
         <button class="bg-yellow-400 text-purple-900 px-5 py-2 md:px-7 md:py-3 rounded-full font-extrabold text-sm md:text-base shadow-xl transform group-hover:scale-105 active:scale-95 transition-all">
           Profiter !
