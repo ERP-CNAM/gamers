@@ -27,6 +27,12 @@ export class SubscriptionMockService extends SubscriptionService {
       status: 'ACTIVE',
       promoCode: (payload as any).promoCode || null,
       endDate: null,
+      user: {
+        paymentMethod: {
+          type: 'SEPA',
+          iban: 'FR76 0000 0000 0000 0000 0000 000',
+        },
+      },
     };
 
     this._mockDb = [newSub, ...this._mockDb];

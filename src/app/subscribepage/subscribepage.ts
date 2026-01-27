@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { toSignal, toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Card } from '../../components/card/card';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -7,11 +7,12 @@ import { Adsbanner } from '../../components/adsbanner/adsbanner';
 import { SubscriptionService } from '../../services/subscription.service';
 import { Subscription } from '../../models/SubscriptionResponse';
 import { firstValueFrom, switchMap } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-subscribepage',
   standalone: true,
-  imports: [Card, Adsbanner, ReactiveFormsModule],
+  imports: [Card, Adsbanner, ReactiveFormsModule, DecimalPipe],
   templateUrl: './subscribepage.html',
   styleUrl: './subscribepage.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,6 +62,15 @@ export class Subscribepage {
     expiryDate: [''],
     cvv: [''],
   });
+
+  constructor() {
+    this.subscriptionForm.controls.promoCode.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((code) => {
+        const amount = code === 'B1M20' ? 7.5 : 15.0;
+        this.subscriptionForm.controls.monthlyAmount.setValue(amount);
+      });
+  }
 
   openForm() {
     this.subscriptionForm.patchValue({ userId: this.userIdStr() });

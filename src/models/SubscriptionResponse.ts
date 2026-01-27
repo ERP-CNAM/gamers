@@ -14,16 +14,28 @@ export interface Subscription {
   endDate: string | null;
   monthlyAmount: number;
   promoCode: string | null;
+  user: {
+    paymentMethod: {
+      type: string;
+      iban: string;
+    } | null;
+  };
   status: 'ACTIVE' | 'CANCELLED' | 'PENDING_CANCEL';
 }
 
 export interface SubscriptionListElementOLD {
-    id: string;
-    userId: string;
-    contractCode: string;
-    startDate: string;
-    endDate: string;
-    monthlyAmount: number;
-    promoCode: string;
-    status: string;
+  id: string;
+  userId: string;
+  contractCode: string;
+  startDate: string;
+  endDate: string;
+  monthlyAmount: number;
+  promoCode: string;
+  user: {
+    paymentMethod: {
+      type: string;
+      iban: string;
+    };
+  };
+  status: string;
 }
