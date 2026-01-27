@@ -7,7 +7,13 @@
             "status": "OK",
             "firstName": "Admin",
             "lastName": "User",
-            "id": 1
+            "id": 1,
+            "phone": "0123456789",
+            "address": "1 Rue de la Paix",
+            "city": "Paris",
+            "postalCode": "75001",
+            "country": "France",
+            "dateOfBirth": "1980-01-01"
         },
         {
             "email": "user",
@@ -16,7 +22,13 @@
             "status": "BLOCKED",
             "firstName": "Regular",
             "lastName": "User",
-            "id": 2
+            "id": 2,
+            "phone": "0987654321",
+            "address": "10 Avenue des Champs",
+            "city": "Lyon",
+            "postalCode": "69002",
+            "country": "France",
+            "dateOfBirth": "1995-05-15"
         }
     ]
 }
